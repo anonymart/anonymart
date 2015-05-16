@@ -2,10 +2,12 @@
 
 @section('content')
 <div class="container">
+	@if(Auth::guest())
 	<div class="alert alert-info" style="text-align:center">
 		<p>This is your order url. Save it somewhere safe. You will not be able to check or update your order if you lose it.</p>
 		<pre style="display:inline-block;margin-top:10px;">{{{$order->url_with_code}}}</pre>
 	</div>
+	@endif
 	<h1>Order for {{{$order->product->title}}} x {{{$order->quantity}}}: {{{$order->status_pretty}}}</h1>
 	@if($order->status==='unpaid')
 		<p>
