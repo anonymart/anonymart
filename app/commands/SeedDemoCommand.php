@@ -55,23 +55,23 @@ class SeedDemoCommand extends Command {
 			,'blockchain_password'=>$this->argument('blockchain_password')
 			,'site_info'=>"## This is a demo for Anonymart\r\n\r\nNothing here is actually for sale, so you'll lose anything you spend here."
 			,'pgp_public'=>
-				'-----BEGIN PGP PUBLIC KEY BLOCK-----
-				Version: BCPG C# v1.6.1.0
+'-----BEGIN PGP PUBLIC KEY BLOCK-----
+Version: BCPG C# v1.6.1.0
 
-				mQENBFVXcGgBCACPqftNyL78wzlLOR8gGtVjI9y8s0y0s2YnZG2zkfXVY+AqnS4F
-				lzAGKOZhYleZZWWEfBIVw64AXbom2uYI1Bg4scp0gMXFfWEqhzz9LcBUo5+J8ZKR
-				/NA6m5OWL7n1DLM3VNUX2441pBC8e55JSQELFDO7DgDJwEq/2QsHgoEyb8DRzBUt
-				xgMPm+SjEPkLHmNB1awllR6vjTK1UAy66uRefmzrIBQJVB7AcHHnDrF/eci9OtY0
-				/QDwIR6v1IYb10fpFtJL4cPpkAk7ONzCt78CA1Mnx2nr7PSDSnWFFgFAbGvQgmbt
-				0ZVYauTXQgX7hqD+OxxFlDo0mAuLZ6HjM4llABEBAAG0AIkBHAQQAQIABgUCVVdw
-				aAAKCRC8JlL9Q1GWkhC0B/0av6bIG/W/hz0RsdhEthirGHH27ZIiugcPiYSxHScZ
-				Hhx8U4cfHUhSBej70fQZ/lQJZTB9DjG6pbzVqLr1lyYZsTxysfWUH+6QQ0QLPEkI
-				K/oTIfEkPoz81LVnJE1YbrG5EI3AWb96HG78QxK+aNN/DZBmdxA51Ts0dk1mvlPD
-				x3I/kaKA1gUa/DGsGzrNOOdND0CPEwixwxGDjfxSGXi38ycBkBxoRDOcUCx5kd2q
-				GN8wraTACCQNXbYz8c/yPF5Fe4k662pY/jeyzN4XxE8rzyYWLVm/19QzixtsRc8n
-				CnBXLCfNAuBXBdUWEMC/iLSE1P3mGGHN7cAzB0EJTHke
-				=SLpY
-				-----END PGP PUBLIC KEY BLOCK-----'
+mQENBFVXcGgBCACPqftNyL78wzlLOR8gGtVjI9y8s0y0s2YnZG2zkfXVY+AqnS4F
+lzAGKOZhYleZZWWEfBIVw64AXbom2uYI1Bg4scp0gMXFfWEqhzz9LcBUo5+J8ZKR
+/NA6m5OWL7n1DLM3VNUX2441pBC8e55JSQELFDO7DgDJwEq/2QsHgoEyb8DRzBUt
+xgMPm+SjEPkLHmNB1awllR6vjTK1UAy66uRefmzrIBQJVB7AcHHnDrF/eci9OtY0
+/QDwIR6v1IYb10fpFtJL4cPpkAk7ONzCt78CA1Mnx2nr7PSDSnWFFgFAbGvQgmbt
+0ZVYauTXQgX7hqD+OxxFlDo0mAuLZ6HjM4llABEBAAG0AIkBHAQQAQIABgUCVVdw
+aAAKCRC8JlL9Q1GWkhC0B/0av6bIG/W/hz0RsdhEthirGHH27ZIiugcPiYSxHScZ
+Hhx8U4cfHUhSBej70fQZ/lQJZTB9DjG6pbzVqLr1lyYZsTxysfWUH+6QQ0QLPEkI
+K/oTIfEkPoz81LVnJE1YbrG5EI3AWb96HG78QxK+aNN/DZBmdxA51Ts0dk1mvlPD
+x3I/kaKA1gUa/DGsGzrNOOdND0CPEwixwxGDjfxSGXi38ycBkBxoRDOcUCx5kd2q
+GN8wraTACCQNXbYz8c/yPF5Fe4k662pY/jeyzN4XxE8rzyYWLVm/19QzixtsRc8n
+CnBXLCfNAuBXBdUWEMC/iLSE1P3mGGHN7cAzB0EJTHke
+=SLpY
+-----END PGP PUBLIC KEY BLOCK-----'
 		];
 		file_put_contents(base_path().'/data/settings.json',json_encode($settings));
 
