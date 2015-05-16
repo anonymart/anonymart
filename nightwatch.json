@@ -1,0 +1,39 @@
+{
+  "src_folders" : ["./tests"],
+  "output_folder" : "./reports",
+  "custom_commands_path" : "",
+  "live_output" : true,
+  "parallel_process_delay" : 3500,
+
+  "selenium" : {
+    "start_process" : true,
+    "server_path" : "./bin/selenium-server-standalone-2.45.0.jar",
+    "log_path" : "",
+    "cli_args" : {
+      "webdriver.firefox.profile" : "default"
+    }
+  },
+
+  "test_settings" : {
+    "default" : {
+      "launch_url" : "localhost:8000",
+      "silent" : true,
+      "screenshots" : {
+        "enabled" : false,
+        "path" : "./screenshots"
+      },
+      "globals" : {
+
+      }
+    },
+
+    "firefox" : {
+      "desiredCapabilities" : {
+        "browserName" : "firefox",
+        "javascriptEnabled" : true
+      }
+    }
+  }
+}
+
+

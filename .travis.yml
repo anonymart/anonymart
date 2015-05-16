@@ -1,0 +1,19 @@
+# Required to run your project under the correct environment.
+
+language: php
+php:
+    - 5.4
+    - 5.5
+    - 5.6
+    - hhvm
+
+
+before_script:
+    - chmod u+rwx ./bin/init.sh
+    - sudo ./bin/init.sh
+
+matrix:
+    fast_finish: true
+
+notifications:
+    email: false
