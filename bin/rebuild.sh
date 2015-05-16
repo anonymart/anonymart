@@ -1,7 +1,7 @@
-yes | tugboat rebuild anonymart -k=11861819
+yes | tugboat rebuild anonymart2 -k=11861819
 sleep 10
-tugboat wait anonymart --state active
+tugboat wait anonymart2 --state active
 sleep 10
-ssh-keygen -R 45.55.192.76
+ssh-keygen -R 104.236.227.109
 sleep 10
-ssh root@45.55.192.76 -i ~/.ssh/digitalocean 'bash -s' < bin/ssh.sh
+ssh root@104.236.227.109 -i ~/.ssh/digitalocean 'bash -s' < bin/ssh.sh

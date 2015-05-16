@@ -1,1 +1,2 @@
-* * * * * php /var/www/anonymart/artisan app:check-unpaid-orders
+* * * * * php /var/www/anonymart/artisan app:check-unpaid-orders &>/dev/null &
+0 * * * * php /var/www/anonymart/artisan app:update-rates &>/dev/null &
