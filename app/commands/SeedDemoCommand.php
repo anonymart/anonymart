@@ -38,8 +38,8 @@ class SeedDemoCommand extends Command {
 	public function fire()
 	{
 
-		Artisan::call('migrate:rollback');
-		Artisan::call('migrate');
+		Artisan::call('migrate:rollback --force');
+		Artisan::call('migrate --force');
 
 		$user = new User;
 		$user->is_admin = 1;
