@@ -162,6 +162,13 @@ class Order extends \Eloquent {
 				break;
 		}
 	}
+
+	public static function checkUnpaidOrders(){
+		$orders = Order::where('is_paid',0)->where('is_cancelled',0)->get();
+
+		foreach($orders as $order)
+			$order->check();
+	}
 }
 
 Order::creating(function($order){

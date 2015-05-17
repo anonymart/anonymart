@@ -24,6 +24,7 @@
 		        			<li><a href="/products/create">Add Products</a></li>
 		        			<li><a href="/orders">Orders</a></li>
 		        			<li><a href="/settings/edit">Settings</a></li>
+		        			<li><a href="/logs/errors">Logs</a></li>
 		        			<li><a href="/logout">Logout</a></li>
 		        		@endif
 		        		@if(User::count()>0)

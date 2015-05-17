@@ -97,3 +97,18 @@ function get_random_string($length = 32){
     
     return $randomString;
 }
+
+function update_rates(){
+	$blockchain = get_blockchain();
+	$rates = $blockchain->Rates->get();
+	
+	if($rates===null)
+		throw new Exception('Invalid rates data');
+
+	$rates_clean = [];
+
+	foreach($rates as $currency=>$rate)
+		$rates_clean[$currency] = $rate->buy;
+
+	file_put_contents(base_path().'/data/rates.json',json_encode($rates_clean));
+}

@@ -47,6 +47,9 @@ Route::group(['before'=>'settings.complete'],function(){
 		Route::get('orders','OrdersController@index');
 		Route::get('products/create','ProductsController@create');
 		Route::get('products/{product_id}/edit','ProductsController@edit');
+		Route::get('logs/errors',function(){
+			return View::make('logs.errors');
+		});
 
 		Route::group(['before'=>'csrf'],function(){
 			Route::post('settings/edit','SettingsController@update');
