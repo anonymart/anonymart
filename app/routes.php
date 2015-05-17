@@ -50,6 +50,23 @@ Route::group(['before'=>'settings.complete'],function(){
 		Route::get('logs/errors',function(){
 			return View::make('logs.errors');
 		});
+		Route::get('logs/cron',function(){
+			$nameRows = Job::select('name')->groupBy('name')->get()->toArray();
+			$jobNameOptions = [''=>'all jobs'];
+
+			foreach($nameRows as $nameRow)
+				$jobNameOptions[$nameRow['name']] = $nameRow['name'];
+			
+			if(Input::has('name'))
+				$jobs = Job::where('name',Input::get('name'))->get();
+			else
+				$jobs = Job::all();
+
+			return View::make('logs.cron',[
+				'jobs'=>Job::all()
+				,'jobNameOptions'=>$jobNameOptions
+			]);
+		});
 
 		Route::group(['before'=>'csrf'],function(){
 			Route::post('settings/edit','SettingsController@update');

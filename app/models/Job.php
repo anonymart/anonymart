@@ -2,6 +2,7 @@
 
 class Job extends \Eloquent {
 	protected $fillable = ['name'];
+	protected $dates = ['completed_at'];
 
 	public function markCompleted(){
 		$this->completed_at = new DateTime;

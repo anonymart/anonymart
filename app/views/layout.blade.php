@@ -16,9 +16,9 @@
 		<header class="navbar navbar-fixed-top navbar-inverse">
 			<div class="container">
 		    	<div class="navbar-header">
-		    		<a href="/" class="navbar-brand">{{{Settings::get('site_name')}}}</a>
+		    		<a href="/" class="navbar-brand hidden-xs hidden-sm">{{{Settings::get('site_name')}}}</a>
 		    	</div>
-		    	<nav class="collapse navbar-collapse bs-navbar-collapse">
+		    	<nav class="">
 		      		<ul class="nav navbar-nav navbar-right">
 		        		@if(Auth::check())
 		        			<li><a href="/products/create">Add Products</a></li>
