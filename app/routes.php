@@ -57,13 +57,15 @@ Route::group(['before'=>'settings.complete'],function(){
 			foreach($nameRows as $nameRow)
 				$jobNameOptions[$nameRow['name']] = $nameRow['name'];
 			
+			$jobsQuery = Job::orderBy('created_at','DESC')->take(100);
+
 			if(Input::has('name'))
-				$jobs = Job::where('name',Input::get('name'))->get();
+				$jobs = $jobsQuery->where('name',Input::get('name'))->get();
 			else
-				$jobs = Job::all();
+				$jobs = $jobsQuery->get();
 
 			return View::make('logs.cron',[
-				'jobs'=>Job::all()
+				'jobs'=>$jobs
 				,'jobNameOptions'=>$jobNameOptions
 			]);
 		});

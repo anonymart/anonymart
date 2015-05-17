@@ -4,6 +4,10 @@ class Job extends \Eloquent {
 	protected $fillable = ['name'];
 	protected $dates = ['completed_at'];
 
+	public function getDurationAttribute(){
+		return $this->completed_at->diffInSeconds($this->created_at);
+	}
+
 	public function markCompleted(){
 		$this->completed_at = new DateTime;
 		$this->save();

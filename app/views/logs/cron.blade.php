@@ -18,9 +18,9 @@
 		</th>
 		@foreach($jobs as $job)
 		<tr class="{{{$job->is_failed?'job-failed':''}}}">
-			<td>{{{$job->id}}}.</td>
+			<td>{{{$job->created_at->diffForHumans()}}}</td>
 			<td>{{{$job->name}}}</td>
-			<td>{{{$job->completed_at->diffInSeconds($job->created_at)}}}</td>
+			<td>{{{$job->duration}}}s</td>
 			<td>
 				@if($job->message)
 					<code>{{{$job->message}}}</code>
