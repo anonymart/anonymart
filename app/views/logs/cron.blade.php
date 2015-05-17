@@ -5,6 +5,7 @@
 	.job-failed{background-color:#fcf8e3;}
 </style>
 <div class="container">
+	@include('logs.tabs')
 	<h1>Cron Jobs</h1>
 	<form class="form-inline">
    		{{Form::select('name',$jobNameOptions,Input::get('name'),['class'=>'form-control'])}}
