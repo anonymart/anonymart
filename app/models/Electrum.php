@@ -3,7 +3,8 @@
 class Electrum{
 	
 	public static function exec($command){
-		$results = exec('electrum '.$command);
+		$resultsLines = exec('electrum '.$command,[]);
+		$results = implode(' ',$resultsLines);
 		$resultsDecoded = json_decode($results,false);
 
 		var_dump($results);
