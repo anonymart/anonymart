@@ -4,8 +4,8 @@ Anonymart is (attempting to be) a secure, anonymous storefront that someone with
 
 Anonymart is **not ready for production**. There are known, and unknown, security issues and missing features. Subscribe to [/r/anonymart](http://reddit.com/r/anonymart) for updates.
 
-* [Clearnet Demo](http://clearnetdemo.com)
-* [Tor Demo](http://tordemo.onion)
+* [Clearnet Demo](https://7ssrx6tzhtfpx2m7.tor2web.org/)
+* [Tor Demo](http://7ssrx6tzhtfpx2m7.onion/)
 * [/r/anonymart](http://reddit.com/r/anonymart)
 * [Installation Guide for Programmers](#installation-guide-for-programmers)
 * [Installation Guide for Non-programmers](#installation-guide-for-non-programmers)
