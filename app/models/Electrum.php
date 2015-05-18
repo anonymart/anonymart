@@ -4,7 +4,7 @@ class Electrum{
 	
 	public static function exec($command){
         $resultLines = [];	
-		exec('sudo '.ELECTRUM_PATH.' '.$command,$resultLines);
+		exec('sudo electrum '.$command,$resultLines);
 		$result = implode(' ',$resultLines);
 		$resultDecoded = json_decode($result,false);
 
