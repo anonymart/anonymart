@@ -11,4 +11,5 @@ define('PGP_MESSAGE_START','-----BEGIN PGP MESSAGE-----');
 define('PGP_MESSAGE_END','-----END PGP MESSAGE-----');
 
 define('ERROR_LOG_PATH',base_path().'/app/storage/logs/laravel.log');
+define('ELECTRUM_PATH','/usr/bin/electrum');
 define('ELECTRUM_WALLET_PATH','~/.electrum/wallets/default_wallet');
