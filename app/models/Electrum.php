@@ -18,6 +18,11 @@ class Electrum{
 		self::exec('create');
 	}
 
+	public static function removeWallet(){
+		if(file_exists(ELECTRUM_WALLET_PATH))
+			unlink(ELECTRUM_WALLET_PATH);
+	}
+
 	public static function getMnemonic(){
 		return self::exec('getseed')->mnemonic;
 	}

@@ -10,4 +10,5 @@ define('PGP_PUBLIC_END','-----END PGP PUBLIC KEY BLOCK-----');
 define('PGP_MESSAGE_START','-----BEGIN PGP MESSAGE-----');
 define('PGP_MESSAGE_END','-----END PGP MESSAGE-----');
 
-define('ERROR_LOG',base_path().'/app/storage/logs/laravel.log');
+define('ERROR_LOG_PATH',base_path().'/app/storage/logs/laravel.log');
+define('ELECTRUM_WALLET_PATH','~/.electrum/wallets/default_wallet');

@@ -117,5 +117,12 @@ class SettingsController extends \BaseController {
 		//
 	}
 
+	public function getElectrum()
+	{
+		return View::make('settings.electrum',[
+			'mnemonic'=>Electrum::getMnemonic()
+		]);
+	}
+
 
 }
