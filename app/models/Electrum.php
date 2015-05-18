@@ -18,8 +18,8 @@ class Electrum{
 		self::exec('create');
 	}
 
-	public static function getMneumonic(){
-		return self::exec('getseed')->mneumonic;
+	public static function getMnemonic(){
+		return self::exec('getseed')->mnemonic;
 	}
 
 
