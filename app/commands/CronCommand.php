@@ -50,6 +50,9 @@ class CronCommand extends Command {
 				case 'check-unpaid-orders':
 					Order::checkUnpaidOrders();
 					break;
+				case 'clear-old-jobs':
+					Job::clearOldJobs();
+					break;
 				default:
 					throw new Exception("Unkown job '$name'");
 					break;

@@ -19,4 +19,28 @@ class Job extends \Eloquent {
 		$this->message = $message;
 		$this->save();
 	}
+
+	public static function clearOldJobs(){
+
+	}
+
+	public static function getUniqueNames(){
+		$nameRows = self::select('name')->groupBy('name')->get()->toArray();
+		$names = [];
+
+		foreach($nameRows as $row)
+			$names[] = $row['name'];
+
+		return $names;
+	}
+
+	public static function getNameOptions(){
+		$names = self::getUniqueNames();
+		$jobNameOptions = [''=>'all jobs'];
+
+		foreach($names as $name)
+			$jobNameOptions[$name] = $name;
+
+		return $jobNameOptions;
+	}
 }

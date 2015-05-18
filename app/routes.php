@@ -51,12 +51,6 @@ Route::group(['before'=>'settings.complete'],function(){
 			return View::make('logs.errors');
 		});
 		Route::get('logs/cron',function(){
-			$nameRows = Job::select('name')->groupBy('name')->get()->toArray();
-			$jobNameOptions = [''=>'all jobs'];
-
-			foreach($nameRows as $nameRow)
-				$jobNameOptions[$nameRow['name']] = $nameRow['name'];
-			
 			$jobsQuery = Job::orderBy('created_at','DESC')->take(100);
 
 			if(Input::has('name'))
@@ -66,7 +60,7 @@ Route::group(['before'=>'settings.complete'],function(){
 
 			return View::make('logs.cron',[
 				'jobs'=>$jobs
-				,'jobNameOptions'=>$jobNameOptions
+				,'jobNameOptions'=>Job::getNameOptions()
 			]);
 		});
 
