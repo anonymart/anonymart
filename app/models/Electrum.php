@@ -3,16 +3,15 @@
 class Electrum{
 	
 	public static function exec($command){
-		$resultsLines = exec('electrum '.$command,[]);
-		$results = implode(' ',$resultsLines);
-		$resultsDecoded = json_decode($results,false);
+        $resultLines = [];	
+		exec('electrum '.$command,$resultLines);
+		$result = implode(' ',$resultLines);
+		$resultDecoded = json_decode($result,false);
 
-		var_dump($results);
-
-		if($resultsDecoded)
-			return $resultsDecoded;
+		if($resultDecoded)
+			return $resultDecoded;
 		else
-			return $results;
+			return $result;
 	}
 
 	public static function create(){
