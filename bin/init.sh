@@ -2,7 +2,7 @@ export DEBIAN_FRONTEND=noninteractive
 
 apt-get update -y 
 apt-get upgrade -y
-apt-get -y install nginx curl php5 php5-fpm mysql-server php5-mysql php5-cli php5-mcrypt php5-curl php5-gd tor electrum -qq
+apt-get -y install sudo nginx curl php5 php5-fpm mysql-server php5-mysql php5-cli php5-mcrypt php5-curl php5-gd tor electrum -qq
 
 echo cgi.fix_pathinfo=0 >> /etc/php5/fpm/php.ini
 echo listen = /var/run/php5-fpm.sock >> /etc/php5/fpm/pool.d/www.conf
@@ -43,6 +43,6 @@ crontab /var/www/anonymart/configs/cron
 
 electrum -p socks5:localhost:9050
 echo | electrum create
-chown -R www-data:www-data ~/.electrum
+echo www-data ALL = NOPASSWD: /usr/bin/electrum >> /etc/sudoers
 
 echo $hostname
