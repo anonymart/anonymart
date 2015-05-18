@@ -16,7 +16,7 @@ composer config -g github-oauth.github.com 48c6aa57bbdb1e622e1c5807169338c2943c0
 
 chgrp -R www-data /var/www/anonymart
 chown -R www-data:www-data /var/www/anonymart/app/storage
-chown -R www-data:www-data /var/www/anonymart/ && sudo chmod 755 /var/www
+chown -R www-data:www-data /var/www/anonymart/ && chmod 755 /var/www
 
 php5enmod mcrypt
 service nginx restart
