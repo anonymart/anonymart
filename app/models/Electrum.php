@@ -4,7 +4,7 @@ class Electrum{
 	
 	public static function exec($command){
         $resultLines = [];	
-		exec(ELECTRUM_PATH.' '.$command,$resultLines);
+		exec(ELECTRUM_PATH.' '.$command.' -w ~/.electrum',$resultLines);
 		$result = implode(' ',$resultLines);
 		$resultDecoded = json_decode($result,false);
 

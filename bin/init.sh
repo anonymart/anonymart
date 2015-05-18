@@ -43,5 +43,6 @@ crontab /var/www/anonymart/configs/cron
 
 electrum -p socks5:localhost:9050
 echo | electrum create
+chown -R www-data:www-data ~/.electrum
 
 echo $hostname
