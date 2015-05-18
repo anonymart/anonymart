@@ -3,6 +3,7 @@
 class Job extends \Eloquent {
 	protected $fillable = ['name'];
 	protected $dates = ['completed_at'];
+	const MAXIMUM_JOBS = 100;
 
 	public function getDurationAttribute(){
 		return $this->completed_at->diffInSeconds($this->created_at);
@@ -21,6 +22,17 @@ class Job extends \Eloquent {
 	}
 
 	public static function clearOldJobs(){
+		$names = self::getUniqueNames();
+
+		foreach($names as $name){
+			$jobsCount = Job::where('name','=',$name)->count();
+			if($jobsCount <= self::MAXIMUM_JOBS) continue;
+
+			$name = mysqli::real_escape_string($name);
+			$limit = (int) $jobsCount-self::MAXIMUM_JOBS;
+
+			DB::delete("DELETE FROM jobs WHERE name = '{$name}' ORDER BY created_at ASC LIMIT $limit");
+		}
 
 	}
 
