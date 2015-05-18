@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-	@include('logs.tabs')
+	@include('logs.tabs',['tabId'=>'errors'])
 	<h1>Error Logs</h1>
 	@if(file_exists(ERROR_LOG))
 		<pre>{{{File::get(ERROR_LOG)}}}</pre>
