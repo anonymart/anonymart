@@ -4,6 +4,12 @@
 <div class="container">
 	@include('logs.tabs')
 	<h1>Error Logs</h1>
-	<pre>{{{File::get(base_path().'/app/storage/logs/laravel.log')}}}</pre>
+	@if(file_exists(ERROR_LOG))
+		<pre>{{{File::get(ERROR_LOG)}}}</pre>
+	@else
+		<div class="alert alert-info">
+			No errors so far.
+		</div>
+	@endif
 </div>
 @stop
