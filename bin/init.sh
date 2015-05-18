@@ -39,5 +39,5 @@ perl -pi -e "s/ONIONHOSTNAME/$hostname/g" /etc/nginx/sites-available/anonymart
 ln -s /etc/nginx/sites-available/anonymart /etc/nginx/sites-enabled/anonymart
 service nginx restart
 
-crontab configs/cron
+crontab /var/www/anonymart/configs/cron
 echo $hostname
