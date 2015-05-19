@@ -2,7 +2,7 @@ export DEBIAN_FRONTEND=noninteractive
 
 apt-get update -y 
 apt-get upgrade -y
-apt-get -y install sudo nginx curl php5 php5-fpm mysql-server php5-mysql php5-cli php5-mcrypt php5-curl php5-gd tor electrum -qq
+apt-get -y install sudo nginx curl php5 php5-fpm mysql-server php5-mysql php5-cli php5-mcrypt php5-curl php5-gd tor -qq
 
 wget https://download.electrum.org/Electrum-2.2.tar.gz
 tar -zxvf Electrum-2.2.tar.gz
