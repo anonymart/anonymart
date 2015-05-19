@@ -21,7 +21,7 @@ class Electrum{
         if($inputs !== null)
         	$command = 'echo -ne \''.implode('\n',$inputs).'\n\' | '.$command;
 
-        var_dump($command)
+        var_dump($command);
 
         $resultLines = [];
 		$lastResultLine = exec($command,$resultLines);
