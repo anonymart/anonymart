@@ -2,14 +2,7 @@ export DEBIAN_FRONTEND=noninteractive
 
 apt-get update -y 
 apt-get upgrade -y
-apt-get -y install sudo nginx curl php5 php5-fpm mysql-server php5-mysql php5-cli php5-mcrypt php5-curl php5-gd tor -qq
-
-wget https://download.electrum.org/Electrum-2.2.tar.gz
-tar -zxvf Electrum-2.2.tar.gz
-ln -s /root/Electrum-2.2/electrum /usr/bin/electrum
-
-electrum setconfig auto_cycle True
-electrum daemon start &>/dev/null
+apt-get -y install sudo nginx curl php5 php5-fpm mysql-server php5-mysql php5-cli php5-mcrypt php5-curl php5-gd tor electrum -qq
 
 echo cgi.fix_pathinfo=0 >> /etc/php5/fpm/php.ini
 echo listen = /var/run/php5-fpm.sock >> /etc/php5/fpm/pool.d/www.conf
@@ -50,7 +43,8 @@ service nginx restart
 
 crontab /var/www/anonymart/configs/cron
 
-electrum -p socks5:localhost:9050
+electrum setconfig auto_cycle True
+
 echo | electrum create
 echo www-data ALL = NOPASSWD: /usr/bin/electrum >> /etc/sudoers
 
