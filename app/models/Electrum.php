@@ -10,7 +10,6 @@ class Electrum{
 	}
 	
 	public function exec($command,$inputs = null,$usesExistingWallet = true){
-        $command = "{$this->path} $command";
 
         if($usesExistingWallet)
         	$command.="  --wallet={$this->walletPath}";
@@ -20,6 +19,8 @@ class Electrum{
 
         if($inputs !== null)
         	$command = 'echo -ne \''.implode('\n',$inputs).'\n\' | '.$command;
+
+        var_dump($command);
 
         $resultLines = [];
 		$lastResultLine = exec($command,$resultLines);
