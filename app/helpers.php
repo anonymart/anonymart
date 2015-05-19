@@ -11,6 +11,14 @@ function get_blockchain(){
 	return $blockchain;
 }
 
+function get_electrum(){
+	return new Electrum(
+		getenv('ELECTRUM_PATH')
+		,getenv('ELECTRUM_WALLET_PATH')
+		,!!getenv('ELECTRUM_USES_SUDO')
+	);
+}
+
 function get_form_boolean($name){
 	return Form::select($name,[1=>'Yes',0=>'No'],null,['class'=>'form-control']);
 }

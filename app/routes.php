@@ -67,9 +67,11 @@ Route::group(['before'=>'settings.complete'],function(){
 
 		Route::group(['before'=>'csrf'],function(){
 			Route::post('settings/edit','SettingsController@update');
+			Route::post('settings/electrum','SettingsController@postElectrum');
 			Route::post('products/create','ProductsController@store');
 			Route::post('products/{product_id}/edit','ProductsController@update');
 			Route::post('products/{product_id}/destroy','ProductsController@destroy');
+
 		});
 	});
 

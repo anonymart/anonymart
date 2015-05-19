@@ -119,9 +119,38 @@ class SettingsController extends \BaseController {
 
 	public function getElectrum()
 	{
+
+		try{
+			$mnemonic = get_electrum()->getMnemonic();
+		}catch(Exception $e){
+			return View::make('settings.electrum',[
+				'mnemonic'=>''
+			])->with('errors',['Electrum failed with the following message',$e->getMessage()]);
+		}
+
 		return View::make('settings.electrum',[
-			'mnemonic'=>Electrum::getMnemonic()
+			'mnemonic'=>$mnemonic
 		]);
+	}
+
+	public function postElectrum()
+	{
+
+		if(!Input::has('mnemonic'))
+			return get_form_redirect('errors',['Mnemonic missing']);
+
+		try{
+			$electrum = get_electrum();
+			$oldMnemonic = $electrum->getMnemonic();
+			
+			$electrum->removeWallet();
+			$electrum->restore(Input::get('mnemonic'));
+		}catch(Exception $e){
+			@$electrum->restore($oldMnemonic);
+			return get_form_redirect('errors',['Something went wrong',$e->getMessage()]);
+		}
+		return get_form_redirect('successes',['Wallet updated']);
+
 	}
 
 

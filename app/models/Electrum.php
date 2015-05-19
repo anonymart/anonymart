@@ -1,30 +1,62 @@
 <?php
 
 class Electrum{
+
+	public function __construct($path,$walletPath,$usesSudo = false){
+		$this->path = $path;
+		$this->walletPath = $walletPath;
+		$this->usesSudo = $usesSudo;
+		$this->password = 'password';
+	}
 	
-	public static function exec($command){
-        $resultLines = [];	
-		exec('sudo electrum '.$command,$resultLines);
+	public function exec($command,$inputs = null,$usesExistingWallet = true){
+        $command = "{$this->path} $command";
+
+        if($usesExistingWallet)
+        	$command.="  --wallet={$this->walletPath}";
+
+        if($this->usesSudo)
+        	$command = "sudo $command";
+
+        if($inputs !== null)
+        	$command = 'echo -ne \''.implode('\n',$inputs).'\n\' | '.$command;
+
+        $resultLines = [];
+		$lastResultLine = exec($command,$resultLines);
 		$result = implode(' ',$resultLines);
+
+		if(stripos($result,'Error:')!==FALSE)
+			throw new Exception($result);
+
 		$resultDecoded = json_decode($result,false);
 
 		if($resultDecoded)
 			return $resultDecoded;
 		else
-			return $result;
+			return $lastResultLine;
 	}
 
-	public static function create(){
-		self::exec('create');
+	public function create(){
+		self::exec('create',[$this->password],false);
 	}
 
-	public static function removeWallet(){
-		if(file_exists(ELECTRUM_WALLET_PATH))
-			unlink(ELECTRUM_WALLET_PATH);
+	public function removeWallet(){
+		if(file_exists($this->walletPath))
+			unlink($this->walletPath);
 	}
 
-	public static function getMnemonic(){
-		return self::exec('getseed')->mnemonic;
+	public function restore($mnemonic){
+		self::removeWallet();
+		self::exec('restore',[$this->password,$mnemonic],false);
+	}
+
+	public function getMnemonic(){
+		$seed = self::exec('getseed',[$this->password]);
+
+		if(gettype($seed) ==='string')
+			return explode(':',$seed)[1];
+		else
+			return $seed->mnemonic;
 	}
 
 

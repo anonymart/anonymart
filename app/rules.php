@@ -18,7 +18,7 @@ Validator::extend('pgp_message', function($attribute, $value, $parameters){
 });
 
 Validator::extend('captchaish',function($attribute, $value, $parameters){
-	if(file_exists(base_path().'/flags/isTesting'))
+	if(is_testing())
 		return true;
 	else
 		return \Captcha::check($value);
