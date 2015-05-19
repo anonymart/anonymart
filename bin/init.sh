@@ -9,7 +9,7 @@ tar -zxvf Electrum-2.2.tar.gz
 ln -s /root/Electrum-2.2/electrum /usr/bin/electrum
 
 electrum setconfig auto_cycle True
-electrum daemon start
+electrum daemon start &>/dev/null
 
 echo cgi.fix_pathinfo=0 >> /etc/php5/fpm/php.ini
 echo listen = /var/run/php5-fpm.sock >> /etc/php5/fpm/pool.d/www.conf
