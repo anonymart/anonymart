@@ -24,9 +24,6 @@ composer update
 php /var/www/anonymart/artisan migrate --force
 php /var/www/anonymart/artisan app:update-rates
 
-chown -R www-data:www-data /var/www/anonymart/ 
-chown -R www-data:www-data /var/www/anonymart/data
-chown -R www-data:www-data /var/www/anonymart/app/storage
 
 cp /var/www/anonymart/configs/torrc /etc/tor/torrc
 service tor stop
@@ -40,6 +37,10 @@ cp /var/www/anonymart/configs/nginx.default /etc/nginx/sites-available/anonymart
 perl -pi -e "s/ONIONHOSTNAME/$hostname/g" /etc/nginx/sites-available/anonymart
 ln -s /etc/nginx/sites-available/anonymart /etc/nginx/sites-enabled/anonymart
 service nginx restart
+
+chown -R www-data:www-data /var/www/anonymart/ 
+chown -R www-data:www-data /var/www/anonymart/data
+chown -R www-data:www-data /var/www/anonymart/app/storage
 
 crontab /var/www/anonymart/configs/cron
 echo $hostname
