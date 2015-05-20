@@ -4,21 +4,21 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
-class CronCommand extends Command {
+class WithdrawCommand extends Command {
 
 	/**
 	 * The console command name.
 	 *
 	 * @var string
 	 */
-	protected $name = 'app:cron';
+	protected $name = 'app:withdraw';
 
 	/**
 	 * The console command description.
 	 *
 	 * @var string
 	 */
-	protected $description = 'Command description.';
+	protected $description = 'Withdraw funds to cashout address.';
 
 	/**
 	 * Create a new command instance.
@@ -37,34 +37,7 @@ class CronCommand extends Command {
 	 */
 	public function fire()
 	{
-		$name = $this->argument('name');
-
-		$job = new Job(['name'=>$name]);
-		$job->save();
-
-		try{
-			switch($name){
-				case 'update-rates':
-					update_rates();
-					break;
-				case 'check-unpaid-orders':
-					Order::checkUnpaidOrders();
-					break;
-				case 'clear-old-jobs':
-					Job::clearOldJobs();
-					break;
-				case 'withdraw':
-					withdraw();
-					break;
-				default:
-					throw new Exception("Unkown job '$name'");
-					break;
-			}
-		}catch(Exception $e){
-			$job->markFailed($e->getMessage());
-		}
-
-		$job->markCompleted();
+		withdraw();
 
 	}
 
@@ -76,7 +49,7 @@ class CronCommand extends Command {
 	protected function getArguments()
 	{
 		return array(
-			array('name', InputArgument::REQUIRED, 'name'),
+			//array('example', InputArgument::REQUIRED, 'An example argument.'),
 		);
 	}
 

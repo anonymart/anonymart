@@ -11,6 +11,18 @@ function get_blockchain(){
 	return $blockchain;
 }
 
+function withdraw(){
+	$blockchain = get_blockchain();
+	$balance_btc = $blockchain->Wallet->getBalance();
+	$wallet_maximum_btc = Settings::get('wallet_maximum_btc');
+
+	if(bccomp($balance_btc,$wallet_maximum_btc)!==1)
+		return;
+
+	$overflow_btc = bcsub($balance_btc,$wallet_maximum_btc); 
+	$blockchain->Wallet->send(Settings::get('address'),$overflow_btc);
+}
+
 function get_form_boolean($name){
 	return Form::select($name,[1=>'Yes',0=>'No'],null,['class'=>'form-control']);
 }
