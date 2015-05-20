@@ -19,6 +19,10 @@ function get_electrum(){
 	);
 }
 
+function is_flag($flag){
+	return file_exists(base_path().'flags/'.$flag);
+}
+
 function get_form_boolean($name){
 	return Form::select($name,[1=>'Yes',0=>'No'],null,['class'=>'form-control']);
 }

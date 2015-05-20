@@ -12,8 +12,6 @@ class Electrum{
 	public function exec($command,$inputs = null,$usesExistingWallet = true){
         $command = "{$this->path} $command";
 
-        if($usesExistingWallet)
-        	$command.="  --wallet={$this->walletPath}";
 
         if($this->usesSudo)
         	$command = "sudo $command";
@@ -21,11 +19,13 @@ class Electrum{
         if($inputs !== null)
         	$command = 'echo -ne \''.implode('\n',$inputs).'\n\' | '.$command;
 
-        var_dump($command);
+        $command.='  2>&1';
 
         $resultLines = [];
 		$lastResultLine = exec($command,$resultLines);
 		$result = implode(' ',$resultLines);
+
+	
 
 		if(stripos($result,'Error:')!==FALSE)
 			throw new Exception($result);
@@ -39,7 +39,7 @@ class Electrum{
 	}
 
 	public function create(){
-		self::exec('create',[$this->password],false);
+		$this->exec('create',[$this->password],false);
 	}
 
 	public function removeWallet(){
@@ -48,12 +48,12 @@ class Electrum{
 	}
 
 	public function restore($mnemonic){
-		self::removeWallet();
-		self::exec('restore',[$this->password,$mnemonic],false);
+		$this->removeWallet();
+		$this->exec('restore',[$this->password,$mnemonic],false);
 	}
 
 	public function getMnemonic(){
-		$seed = self::exec('getseed',[$this->password]);
+		$seed = $this->exec('getseed',[$this->password]);
 
 		if(gettype($seed) ==='string')
 			return explode(':',$seed)[1];

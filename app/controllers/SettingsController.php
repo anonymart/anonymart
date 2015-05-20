@@ -142,6 +142,7 @@ class SettingsController extends \BaseController {
 		try{
 			$electrum = get_electrum();
 			$oldMnemonic = $electrum->getMnemonic();
+			var_dump($oldMnemonic);
 			
 			$electrum->removeWallet();
 			$electrum->restore(Input::get('mnemonic'));
