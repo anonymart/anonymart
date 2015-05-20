@@ -76,7 +76,7 @@ class Settings extends \Eloquent {
 			,'currency'=>'required'
 			,'blockchain_guid'=>'required'
 			,'blockchain_password'=>'required'
-			,'wallet_maximum_btc'=>'string'
+			,'wallet_maximum_btc'=>'required|numeric'
 			,'pgp_public'=>'required|pgp_public'
 		];
 	}
