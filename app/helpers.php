@@ -19,8 +19,9 @@ function withdraw(){
 	if(bccomp($balance_btc,$wallet_maximum_btc,BC_SCALE)!==1)
 		return;
 
-	$overflow_btc = bcsub($balance_btc,$wallet_maximum_btc,BC_SCALE); 
-	$blockchain->Wallet->send(Settings::get('address'),$overflow_btc);
+	$overflow_btc = bcsub($balance_btc,$wallet_maximum_btc,BC_SCALE);
+	$overflow_btc = bcsub($overflow_btc,MINING_FEE,BC_SCALE);
+	$blockchain->Wallet->send(Settings::get('address'),$overflow_btc,null,MINING_FEE);
 }
 
 function get_form_boolean($name){
