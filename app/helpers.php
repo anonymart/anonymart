@@ -16,10 +16,10 @@ function withdraw(){
 	$balance_btc = $blockchain->Wallet->getBalance();
 	$wallet_maximum_btc = Settings::get('wallet_maximum_btc');
 
-	if(bccomp($balance_btc,$wallet_maximum_btc)!==1)
+	if(bccomp($balance_btc,$wallet_maximum_btc,BC_SCALE)!==1)
 		return;
 
-	$overflow_btc = bcsub($balance_btc,$wallet_maximum_btc); 
+	$overflow_btc = bcsub($balance_btc,$wallet_maximum_btc,BC_SCALE); 
 	$blockchain->Wallet->send(Settings::get('address'),$overflow_btc);
 }
 
