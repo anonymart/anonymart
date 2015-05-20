@@ -25,7 +25,8 @@ class Electrum{
 		$lastResultLine = exec($command,$resultLines);
 		$result = implode(' ',$resultLines);
 
-	
+		var_dump($this->path);
+		var_dump($resultLines);
 
 		if(stripos($result,'Error:')!==FALSE)
 			throw new Exception($result);

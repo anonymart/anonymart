@@ -46,6 +46,7 @@ crontab /var/www/anonymart/configs/cron
 pip install https://download.electrum.org/Electrum-2.2.tar.gz
 electrum setconfig auto_cycle True
 electrum daemon start
-echo www-data ALL = NOPASSWD: /usr/bin/electrum >> /etc/sudoers
+echo www-data ALL = NOPASSWD: /usr/local/bin/electrum >> /etc/sudoers
+php /var/www/anonymart/artisan app:create-electrum-wallet
 
 echo $hostname
