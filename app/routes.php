@@ -44,6 +44,7 @@ Route::group(['before'=>'settings.complete'],function(){
 	Route::group(['before'=>'auth'],function(){
 		Route::get('logout','AuthController@getLogout');
 		Route::get('settings/edit','SettingsController@edit');
+		Route::get('settings/password','SettingsController@edit_password');
 		Route::get('orders','OrdersController@index');
 		Route::get('products/create','ProductsController@create');
 		Route::get('products/{product_id}/edit','ProductsController@edit');

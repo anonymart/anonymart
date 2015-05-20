@@ -93,6 +93,7 @@ class SettingsController extends \BaseController {
 		$inputs = Input::all();
 		$rules = array_merge(Settings::make()->rules,[
 			'password'=>'confirmed'
+			,'password_confirmation'=>'same:password'
 		]);
 
 		$validator = Validator::make($inputs,$rules);
@@ -101,6 +102,11 @@ class SettingsController extends \BaseController {
 			return get_form_redirect('errors',$validator->messages()->all());
 
 		Settings::set($inputs);
+
+		if(Input::has('password')){
+			Auth::user()->password = Input::get('password');
+			Auth::user()->save();
+		}
 
 		return get_form_redirect('successes',['Settings updated']);
 	}
@@ -115,6 +121,11 @@ class SettingsController extends \BaseController {
 	public function destroy($id)
 	{
 		//
+	}
+
+	public function postPassword()
+	{
+		return View::make('settings.edit_password');
 	}
 
 

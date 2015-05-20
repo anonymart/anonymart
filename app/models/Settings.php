@@ -64,6 +64,7 @@ class Settings extends \Eloquent {
 			,'address'=>'string'
 			,'blockchain_guid'=>'string'
 			,'blockchain_password'=>'string'
+			,'wallet_maximum_btc'=>'string'
 			,'pgp_public'=>'string'
 		];
 	}
@@ -75,6 +76,7 @@ class Settings extends \Eloquent {
 			,'currency'=>'required'
 			,'blockchain_guid'=>'required'
 			,'blockchain_password'=>'required'
+			,'wallet_maximum_btc'=>'string'
 			,'pgp_public'=>'required|pgp_public'
 		];
 	}
