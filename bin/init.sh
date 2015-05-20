@@ -14,9 +14,6 @@ curl -sS https://getcomposer.org/installer | php
 mv composer.phar /usr/local/bin/composer
 composer config -g github-oauth.github.com 48c6aa57bbdb1e622e1c5807169338c2943c03f3
 
-chown -R www-data:www-data /var/www/anonymart/ 
-chown -R www-data:www-data /var/www/anonymart/data
-chown -R www-data:www-data /var/www/anonymart/app/storage
 
 php5enmod mcrypt
 service nginx restart
@@ -26,6 +23,11 @@ cd /var/www/anonymart/
 composer update
 php /var/www/anonymart/artisan migrate --force
 php /var/www/anonymart/artisan app:update-rates
+
+chown -R www-data:www-data /var/www/anonymart/ 
+chown -R www-data:www-data /var/www/anonymart/data
+chown -R www-data:www-data /var/www/anonymart/app/storage
+
 cp /var/www/anonymart/configs/torrc /etc/tor/torrc
 service tor stop
 service tor start
