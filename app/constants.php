@@ -1,6 +1,6 @@
 <?PHP
 
-define('PROJECT_NAME','LemonadeStand');
+define('PROJECT_NAME','Anonymart');
 
 define('MINIMUM_CONFIRMATIONS',4);
 define('BC_SCALE',4);

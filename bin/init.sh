@@ -8,7 +8,7 @@ echo cgi.fix_pathinfo=0 >> /etc/php5/fpm/php.ini
 echo listen = /var/run/php5-fpm.sock >> /etc/php5/fpm/pool.d/www.conf
 
 chown -R mysql:mysql /var/lib/mysql
-mysql -uroot -e "CREATE DATABASE lemonade;"
+mysql -uroot -e "CREATE DATABASE anonymart;"
 
 curl -sS https://getcomposer.org/installer | php
 mv composer.phar /usr/local/bin/composer
