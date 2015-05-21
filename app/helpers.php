@@ -14,14 +14,13 @@ function get_blockchain(){
 function withdraw(){
 	$blockchain = get_blockchain();
 	$balance_btc = $blockchain->Wallet->getBalance();
-	$wallet_maximum_btc = Settings::get('wallet_maximum_btc');
+	$withdrawl_minimum_btc = Settings::get('withdrawl_minimum_btc');
 
-	if(bccomp($balance_btc,$wallet_maximum_btc,BC_SCALE)!==1)
+	if(bccomp($balance_btc,$withdrawl_minimum_btc,BC_SCALE)!==1)
 		return;
 
-	$overflow_btc = bcsub($balance_btc,$wallet_maximum_btc,BC_SCALE);
-	$overflow_btc = bcsub($overflow_btc,MINING_FEE,BC_SCALE);
-	$blockchain->Wallet->send(Settings::get('address'),$overflow_btc,null,MINING_FEE);
+	$withdrawl_btc = bcsub($balance_btc,MINING_FEE,BC_SCALE);
+	$blockchain->Wallet->send(Settings::get('address'),$withdrawl_btc,null,MINING_FEE);
 }
 
 function get_form_boolean($name){
