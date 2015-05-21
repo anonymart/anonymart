@@ -1,6 +1,6 @@
 #!/bin/sh
 # destinations you don’t want routed through Tor
-NON_TOR=”192.168.1.0/24″
+NON_TOR="192.168.1.0/24"
 # the UID Tor runs as
 TOR_UID=$(id -u debian-tor)
 # Tor’s TransPort
