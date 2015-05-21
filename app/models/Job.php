@@ -28,7 +28,7 @@ class Job extends \Eloquent {
 			$jobsCount = Job::where('name','=',$name)->count();
 			if($jobsCount <= self::MAXIMUM_JOBS) continue;
 
-			$name = mysqli::real_escape_string($name);
+			$name = mysqli_real_escape_string($name);
 			$limit = (int) $jobsCount-self::MAXIMUM_JOBS;
 
 			DB::delete("DELETE FROM jobs WHERE name = '{$name}' ORDER BY created_at ASC LIMIT $limit");
