@@ -2,7 +2,19 @@ export DEBIAN_FRONTEND=noninteractive
 
 git config core.fileMode false
 
+echo deb http://deb.torproject.org/torproject.org jessie main >> /etc/apt/sources.list
+
 apt-get update -y 
+apt-get install tor
+cp /var/www/anonymart/configs/torrc /etc/tor/torrc
+
+chmod u+rwx /var/www/anonymart/bin/route.sh
+/var/www/anonymart/bin/route.sh
+
+iptables -L
+
+/etc/init.d/tor start
+
 apt-get upgrade -y
 apt-get -y install nginx curl php5 php5-fpm mysql-server php5-mysql php5-cli php5-mcrypt php5-curl php5-gd tor -qq
 
@@ -26,8 +38,6 @@ composer update
 php /var/www/anonymart/artisan migrate --force
 php /var/www/anonymart/artisan app:update-rates
 
-
-cp /var/www/anonymart/configs/torrc /etc/tor/torrc
 service tor stop
 service tor start
 tor &>/dev/null &
