@@ -4,7 +4,7 @@ NON_TOR=”192.168.1.0/24″
 # the UID Tor runs as
 TOR_UID=$(id -u debian-tor)
 # Tor’s TransPort
-TRANS_PORT=”9040″
+TRANS_PORT="9040"
 iptables -F
 iptables -t nat -F
 iptables -t nat -A OUTPUT -m owner --uid-owner $TOR_UID -j RETURN
