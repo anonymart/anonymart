@@ -78,6 +78,15 @@ App::down(function()
 |
 */
 
+
+App::after(function($request, $response)
+{
+   	$response->headers->set('Content-Security-Policy',
+   		"default-src 'none'; img-src 'self'; style-src 'self' 'unsafe-inline'"
+   	);
+});
+
+
 require app_path().'/bitcoin.php';
 require app_path().'/constants.php';
 require app_path().'/helpers.php';

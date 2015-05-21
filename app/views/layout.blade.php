@@ -1,5 +1,6 @@
 <html>
 	<head>
+		<script>alert('javascript enabled. something is wrong.')</script>
 		<link rel="stylesheet" href="/assets/bootstrap.min.css">
 		<style>
 			.explainer{color:#666; font-size: 80%;}
