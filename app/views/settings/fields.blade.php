@@ -29,7 +29,7 @@
 </tr>
 <tr>
 	<td>Order TTL (Minutes)
-		<p class="explainer">How long should an order stay alive before it expires? Set at 0 to never expire.</p>
+		<p class="explainer">How long should an order stay alive before it expires?</p>
 	</td>
 	<td>{{Form::text('order_ttl_minutes',null,['class'=>'form-control'])}}</td>
 </tr>
