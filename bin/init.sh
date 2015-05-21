@@ -1,12 +1,9 @@
 export DEBIAN_FRONTEND=noninteractive
 
-git config core.fileMode false
-
 echo deb http://deb.torproject.org/torproject.org jessie main >> /etc/apt/sources.list
 
 apt-get update -y 
 apt-get install tor -y
-mkdir /etc/tor
 cp /var/www/anonymart/configs/torrc /etc/tor/torrc
 
 chmod u+rwx /var/www/anonymart/bin/route.sh
@@ -33,6 +30,7 @@ service nginx restart
 service php5-fpm restart
 
 cd /var/www/anonymart/
+git config core.fileMode false
 composer update
 php /var/www/anonymart/artisan migrate --force
 php /var/www/anonymart/artisan app:update-rates
