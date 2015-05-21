@@ -146,13 +146,45 @@ module.exports = new (function() {
 
     testCases['cancel an order'] = function (client) {
         client
-            .submitForm('#cancelForm')
+            .submitForm('#markCancelledForm')
             .assert.containsText('h1','Cancelled')
             .execute(function(){
                 return document.getElementsByClassName('message').length
             },[],function(outcome){
                 client.assert.equal(outcome.value,2)
             })
+    };
+
+    testCases['make sure orders are added to the order list'] = function (client) {
+        client
+            .url('http://localhost:8000/products/1/orders/create')
+            .setValue('[name=text]', '-----BEGIN PGP MESSAGE----- -----END PGP MESSAGE-----')
+            .setValue('[name=pgp_public]','-----BEGIN PGP PUBLIC KEY BLOCK----- -----END PGP PUBLIC KEY BLOCK-----')
+            .setValue('[name=captcha]','testing')
+            .submitForm('form')
+            .url('http://localhost:8000/login')
+            .setValue('[name=password]', 'password2')
+            .setValue('[name=captcha]', 'testing')
+            .submitForm('form')
+            .url('http://localhost:8000/orders')
+            .execute(function(){
+                return document.getElementsByClassName('order').length
+            },[],function(outcome){
+                client.assert.equal(outcome.value,2)
+            })
+    };
+
+    testCases['mark as shipped'] = function (client) {
+        client
+            .url('http://localhost:8000/orders/2')
+            .submitForm('#markShippedForm')
+            .url('http://localhost:8000/orders?status=shipped')
+            .execute(function(){
+                return document.getElementsByClassName('order').length
+            },[],function(outcome){
+                client.assert.equal(outcome.value,1)
+            })
+
     };
 
     testCases['finishes without errors'] = function(client){

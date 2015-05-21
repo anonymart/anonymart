@@ -22,6 +22,14 @@ class Order extends \Eloquent {
 		$this->save();
 	}
 
+	public function getStatusPrettyAttribute(){
+		return ucwords($this->status);
+	}
+
+	public function getIsCancellableAttribute(){
+		return $this->status==='unpaid'|| $this->status==='paid';
+	}
+
 	public function getTotalAmountBtcAttribute(){
 		return $this->product_amount_btc;
 	}
@@ -32,30 +40,15 @@ class Order extends \Eloquent {
 
 	public function mark($status){
 		switch($status){
-			case 'paid':
-				$this->markAsPaid();
-				break;
 			case 'shipped':
-				$this->markAsShipped();
-				break;
-			case 'cancelled':
-				$this->markAsCancelled();
+				$this->status('shipped');
+				$this->save();
 				break;
 		}
 	}
 
-	public function markAsPaid(){
-		$this->is_paid = true;
-		$this->save();
-		
-		$message = new Message;
-		$message->sender = 'app';
-		$message->template = 'paid';
-		$this->messages()->save($message);
-	}
-
 	public function markAsShipped(){
-		$this->is_shipped = true;
+		$this->status = 'shipped';
 		$this->save();
 
 		$message = new Message;
@@ -65,7 +58,7 @@ class Order extends \Eloquent {
 	}
 
 	public function markAsCancelled(){
-		$this->is_cancelled = true;
+		$this->status = 'cancelled';
 		$this->save();
 
 		$message = new Message;
@@ -74,45 +67,7 @@ class Order extends \Eloquent {
 			$message->template = 'cancelled_vendor';
 		else
 			$message->template = 'cancelled_buyer';
-
 		$this->messages()->save($message);
-	}
-
-	public function getStatusAttribute(){
-		if($this->is_cancelled)
-			return 'cancelled';
-		if($this->is_shipped)
-			return 'shipped';
-		else if($this->is_paid)
-			return 'paid';
-		else if($this->ttl_minutes<=0)
-			return 'expired';
-		else
-			return 'unpaid';
-		return;
-	}
-
-	public function getStatusPrettyAttribute(){
-		switch($this->status){
-			case 'cancelled':
-				return 'Cancelled';
-				break;
-			case 'shipped':
-				return 'Shipped';
-				break;
-			case 'paid':
-				return 'Paid but not shipped';
-				break;
-			case 'unpaid':
-				return 'Unpaid';
-				break;
-			case 'expired':
-				return 'Expired';
-				break;
-			default:
-				throw new Exception('Unknown status');
-				break;
-		}
 	}
 
 	public function getMessageUrlAttribute(){
@@ -124,7 +79,6 @@ class Order extends \Eloquent {
 			'quantity'=>'integer|min:1'
 			,'pgp_public'=>'required|pgp_public'
 			,'text'=>'required|pgp_message'
-//			,'donation_percentage'=>'required|integer|min:0'
 			,'captcha'=>'required|captchaish'
 		];
 	
@@ -142,49 +96,29 @@ class Order extends \Eloquent {
 		return URL::to("orders/{$this->id}?code={$this->code}");
 	}
 
-	public function getMarkUrlAttribute(){
-		return URL::to("orders/{$this->id}/mark");
+	public function getMarkCancelledUrlAttribute(){
+		return URL::to("orders/{$this->id}/markCancelled");
 	}
 
-	public static function queryByStatus($status){
-		switch($status){
-			case 'cancelled':
-				return self::where('is_cancelled',1);
-				break;
-			case 'shipped':
-				return self::where('is_shipped',1)
-					->where('is_cancelled',0);
-				break;
-			case 'paid':
-				return self::where('is_paid',1)
-					->where('is_shipped',0)
-					->where('is_cancelled',0);
-				break;
-			case 'unpaid':
-				return self::where('is_paid',0)
-					->where('is_shipped',0)
-					->where('is_cancelled',0);
-				break;
-			default:
-				throw new Exception('Unknown status');
-				break;
-		}
+	public function getMarkShippedUrlAttribute(){
+		return URL::to("orders/{$this->id}/markShipped");
+	}
+
+	public static function getCuttoffTimestamp(){
+		$order_ttl_minutes = Settings::get('order_ttl_minutes');
+		return (new DateTime("-{$order_ttl_minutes} minutes"))->format('Y-m-d H:i:s');
 	}
 
 	public static function checkUnpaidOrders(){
 
-		$order_ttl_minutes = Settings::get('order_ttl_minutes');
-		$cutoffDate = (new DateTime("-{$order_ttl_minutes} minutes"))->format('Y-m-d H:i:s');
-
-
-		$orders = Order::where('is_paid',0)
-			->where('is_cancelled',0)
-			->where('created_at','>',$cutoffDate)
+		$orders = Order::where('status','unpaid')
+			->where('created_at','>',Order::getCuttoffTimestamp())
 			->get();
 
 		foreach($orders as $order)
 			$order->check();
 	}
+
 }
 
 Order::creating(function($order){

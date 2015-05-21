@@ -31,7 +31,7 @@ Route::group(['before'=>'settings.complete'],function(){
 	Route::group(['before'=>'order.code'],function(){
 		Route::get('orders/{order_id}','OrdersController@show');
 		Route::group(['before'=>'csrf'],function(){
-			Route::post('orders/{order_id}/mark','OrdersController@mark');
+			Route::post('orders/{order_id}/markCancelled','OrdersController@markCancelled');
 			Route::post('orders/{order_id}/messages/create','MessagesController@store');
 		});
 	});
@@ -70,6 +70,7 @@ Route::group(['before'=>'settings.complete'],function(){
 			Route::post('products/create','ProductsController@store');
 			Route::post('products/{product_id}/edit','ProductsController@update');
 			Route::post('products/{product_id}/destroy','ProductsController@destroy');
+			Route::post('orders/{order_id}/markShipped','OrdersController@markShipped');
 		});
 	});
 

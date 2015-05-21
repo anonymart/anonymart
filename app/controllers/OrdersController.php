@@ -11,13 +11,12 @@ class OrdersController extends \BaseController {
 	{
 
 		if(Input::has('status'))
-			$orders = Order::queryByStatus(Input::get('status'))->orderBy('created_at','DESC');
+			$orders = Order::where('status',Input::get('status'))->orderBy('created_at','DESC');
 		else
 			$orders = Order::orderBy('created_at','DESC');
 
 		$orders = $orders->paginate(10);
 
-		
 		return View::make('orders.index',['orders'=>$orders,'status'=>Input::get('status')]);
 
 	}
@@ -58,6 +57,7 @@ class OrdersController extends \BaseController {
 		$order->fill($inputs);
 		$order->product_id = $product_id;
 		$order->product_amount_btc = $product->amount_btc;
+		$order->status = 'unpaid';
 		$order->address = get_blockchain()->Wallet->getNewAddress()->address;
 		$order->save();
 
@@ -120,10 +120,34 @@ class OrdersController extends \BaseController {
 		//
 	}
 
-	public function mark($id){
+	public function markCancelled($id){
 		$order = Order::find($id);
-		$order->mark(Input::get('status'));
-		return get_form_redirect('successes',['Order has been marked as '.Input::get('status')]);
+		$order->status = 'cancelled';
+		$order->save();
+
+		$message = new Message;
+		$message->sender = 'app';
+		if(Auth::check())
+			$message->template = 'cancelled_vendor';
+		else
+			$message->template = 'cancelled_buyer';
+
+		$order->messages()->save($message);
+
+		return get_form_redirect('successes',['Order has been marked as cancelled']);
+	}
+
+	public function markShipped($id){
+		$order = Order::find($id);
+		$order->status = 'shipped';
+		$order->save();
+
+		$message = new Message;
+		$message->sender = 'app';
+		$message->template = 'shipped';
+		$order->messages()->save($message);
+
+		return get_form_redirect('successes',['Order has been marked as shipped']);
 	}
 
 

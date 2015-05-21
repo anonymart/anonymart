@@ -22,8 +22,8 @@
 			This order has expired
 		</div>
 	@endif
-	@if(($order->status==='unpaid' || $order->status==='paid')  && Auth::guest())
-		<form action="{{{$order->mark_url}}}" method="post" style="display:inline-block" id="cancelForm">
+	@if(($order->is_cancellable))
+		<form action="{{{$order->mark_cancelled_url}}}" method="post" style="display:inline-block" id="markCancelledForm">
 			@if(Auth::guest())
 				{{Form::hidden('code',$order->code)}}
 			@endif
@@ -33,16 +33,14 @@
 		</form>
 	@endif
 	@if(Auth::check())
-		@if($order->status === 'paid')
-			<form action="{{{$order->mark_url}}}" method="post" style="display:inline-block">
-				@if(Auth::guest())
-					{{Form::hidden('code',$order->code)}}
-				@endif
-				<input type="hidden" name="status" value="shipped">
-				{{Form::token()}}
-				<button class="btn btn-primary">Mark as Shipped</button>
-			</form>
-		@endif
+		<form action="{{{$order->mark_shipped_url}}}" method="post" style="display:inline-block" id="markShippedForm">
+			@if(Auth::guest())
+				{{Form::hidden('code',$order->code)}}
+			@endif
+			<input type="hidden" name="status" value="shipped">
+			{{Form::token()}}
+			<button class="btn btn-primary">Mark as Shipped</button>
+		</form>
 	@endif
 	<hr>
 	<div class="row">

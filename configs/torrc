@@ -1,3 +1,8 @@
 DataDirectory /var/lib/tor
 HiddenServiceDir /var/lib/tor/anonymart/
 HiddenServicePort 80 127.0.0.1:80
+
+VirtualAddrNetwork 10.192.0.0/10
+AutomapHostsOnResolve 1
+TransPort 9040
+DNSPort 53
