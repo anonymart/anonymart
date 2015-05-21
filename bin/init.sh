@@ -5,13 +5,12 @@ git config core.fileMode false
 echo deb http://deb.torproject.org/torproject.org jessie main >> /etc/apt/sources.list
 
 apt-get update -y 
-apt-get install tor
+apt-get install tor -y
+mkdir /etc/tor
 cp /var/www/anonymart/configs/torrc /etc/tor/torrc
 
 chmod u+rwx /var/www/anonymart/bin/route.sh
 /var/www/anonymart/bin/route.sh
-
-iptables -L
 
 /etc/init.d/tor start
 
