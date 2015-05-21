@@ -1,5 +1,7 @@
 export DEBIAN_FRONTEND=noninteractive
 
+git config core.fileMode false
+
 apt-get update -y 
 apt-get upgrade -y
 apt-get -y install nginx curl php5 php5-fpm mysql-server php5-mysql php5-cli php5-mcrypt php5-curl php5-gd tor -qq
