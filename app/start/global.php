@@ -81,9 +81,10 @@ App::down(function()
 
 App::after(function($request, $response)
 {
-   	$response->headers->set('Content-Security-Policy',
-   		"default-src 'none'; img-src 'self'; style-src 'self' 'unsafe-inline'"
-   	);
+	$csp = "default-src 'none'; img-src 'self'; style-src 'self' 'unsafe-inline'";
+
+   	$response->headers->set('Content-Security-Policy',$csp);
+   	$response->headers->set('X-Content-Security-Policy',$csp);
 });
 
 

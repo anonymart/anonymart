@@ -1,6 +1,5 @@
 <html>
 	<head>
-		<script>alert('javascript enabled. something is wrong.')</script>
 		<link rel="stylesheet" href="/assets/bootstrap.min.css">
 		<style>
 			.explainer{color:#666; font-size: 80%;}
@@ -37,6 +36,10 @@
 			</div>
 		</header>
 		<div class="container">
+			<div class="alert alert-info" style="display:none" id="javascriptAlert">
+				Javascript is enabled. This may be a security risk.
+			</div>
+			<script>javascriptAlert.style.display='block'</script>
 			@if($errors && count($errors)>0)
 				<div class="alert alert-danger">
 					<ul>
