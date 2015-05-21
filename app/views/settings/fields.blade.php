@@ -15,10 +15,10 @@
 	<td>{{Form::text('blockchain_password',null,['class'=>'form-control'])}}</td>
 </tr>
 <tr>
-	<td>Wallet Maximum (BTC)
-		<p class="explainer">What is the maximum amount that should be held in your wallet?</p>
+	<td>Minimum Withdrawl (BTC)
+		<p class="explainer">Smaller minimums reduce your risk, but result in higher mining fees.</p>
 	</td>
-	<td>{{Form::text('wallet_maximum_btc',null,['class'=>'form-control'])}}</td>
+	<td>{{Form::text('withdrawl_minimum_btc',null,['class'=>'form-control'])}}</td>
 </tr>
 <tr>
 	<td>
