@@ -172,7 +172,15 @@ class Order extends \Eloquent {
 	}
 
 	public static function checkUnpaidOrders(){
-		$orders = Order::where('is_paid',0)->where('is_cancelled',0)->get();
+
+		$order_ttl_minutes = Settings::get('order_ttl_minutes');
+		$cutoffDate = (new DateTime("-{$order_ttl_minutes} minutes"))->format('Y-m-d H:i:s');
+
+
+		$orders = Order::where('is_paid',0)
+			->where('is_cancelled',0)
+			->where('created_at','>',$cutoffDate)
+			->get();
 
 		foreach($orders as $order)
 			$order->check();
