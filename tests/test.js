@@ -26,9 +26,11 @@ module.exports = new (function() {
             .url('http://localhost:8000')
             .setValue('[name=site_name]', 'Satoshi\'s Lemonade Stand')
             .setValue('[name=currency]', 'USD')
-            .setValue('[name=address]','147BM4WmH17PPxhiH1kyNppWuyCAwn3Jm4')
             .setValue('[name=blockchain_guid]',process.env.LS_BLOCKCHAIN_GUID)
             .setValue('[name=blockchain_password]',process.env.LS_BLOCKCHAIN_PASSWORD)
+            .setValue('[name=withdrawl_minimum_btc]','0')
+            .setValue('[name=address]','147BM4WmH17PPxhiH1kyNppWuyCAwn3Jm4')
+            .setValue('[name=order_ttl_minutes]','30')
             .setValue('[name=site_info]','#Hello World\r\nWelcome to my Lemonade Stand!')
             .setValue('[name=pgp_public]','-----BEGIN PGP PUBLIC KEY BLOCK----- -----END PGP PUBLIC KEY BLOCK-----')
             .setValue('[name=password]','password')
@@ -41,6 +43,33 @@ module.exports = new (function() {
         client
             .url('http://localhost:8000/login')
             .setValue('[name=password]', 'password')
+            .setValue('[name=captcha]', 'testing')
+            .submitForm('form')
+            .assert.urlEquals('http://localhost:8000/')
+    };
+
+    testCases['edit settings'] = function (client) {
+        client
+            .url('http://localhost:8000/settings/edit')
+            .clearValue('[name=site_name]')
+            .setValue('[name=site_name]', 'Satoshi\'s Lemonade and Cookie Stand')
+            .submitForm('form')
+            .assert.containsText('a.navbar-brand','Satoshi\'s Lemonade and Cookie Stand')
+    };
+
+    testCases['edit password'] = function (client) {
+        client
+            .url('http://localhost:8000/settings/edit')
+            .setValue('[name=password]','password2')
+            .setValue('[name=password_confirmation]','password2')
+            .submitForm('form')
+            .url('http://localhost/logout')
+            .url('http://localhost:8000/login')
+            .setValue('[name=password]', 'password')
+            .setValue('[name=captcha]', 'testing')
+            .submitForm('form')
+            .assert.urlEquals('http://localhost:8000/login')
+            .setValue('[name=password]', 'password2')
             .setValue('[name=captcha]', 'testing')
             .submitForm('form')
             .assert.urlEquals('http://localhost:8000/')
@@ -93,7 +122,6 @@ module.exports = new (function() {
                 client.assert.equal(outcome.value,1)
             })
     };
-
 
 
     testCases['logout'] = function (client) {

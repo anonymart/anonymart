@@ -9,15 +9,20 @@
 	</div>
 	@endif
 	<h1>Order for {{{$order->product->title}}} x {{{$order->quantity}}}: {{{$order->status_pretty}}}</h1>
-	@if($order->status==='unpaid')
+	@if($order->status==='unpaid' && Auth::guest())
 		<p>
-			Please send {{{$order->total_amount_btc}}} BTC to <code>{{{$order->address}}}</code>.
+			Please send {{{$order->total_amount_btc}}} BTC to <code>{{{$order->address}}}</code> within {{{$order->ttl_minutes}}} minutes.
 			@if($order->balance_btc>0)
 				{{{$order->balance_btc}}} BTC received so far.
-			@endif
+			@endif			
 		</p>
 	@endif
-	@if($order->status !== 'cancelled')
+	@if($order->status==='expired')
+		<div class="alert alert-danger">
+			This order has expired
+		</div>
+	@endif
+	@if(($order->status==='unpaid' || $order->status==='paid')  && Auth::guest())
 		<form action="{{{$order->mark_url}}}" method="post" style="display:inline-block" id="cancelForm">
 			@if(Auth::guest())
 				{{Form::hidden('code',$order->code)}}

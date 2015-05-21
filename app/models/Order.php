@@ -14,7 +14,6 @@ class Order extends \Eloquent {
 	public function check(){
 		$blockchain = get_blockchain();
 		$balance_btc = $blockchain->Wallet->getAddressBalance($this->address)->balance;
-		var_dump($balance_btc);
 		$balance_btc = force_type($balance_btc,'float');
 		
 		$this->balance_btc = $balance_btc;
@@ -25,6 +24,10 @@ class Order extends \Eloquent {
 
 	public function getTotalAmountBtcAttribute(){
 		return $this->product_amount_btc;
+	}
+
+	public function getTtlMinutesAttribute(){
+		return Settings::get('order_ttl_minutes') - $this->created_at->diffInMinutes();
 	}
 
 	public function mark($status){
@@ -82,6 +85,8 @@ class Order extends \Eloquent {
 			return 'shipped';
 		else if($this->is_paid)
 			return 'paid';
+		else if($this->ttl_minutes<=0)
+			return 'expired';
 		else
 			return 'unpaid';
 		return;
@@ -100,6 +105,9 @@ class Order extends \Eloquent {
 				break;
 			case 'unpaid':
 				return 'Unpaid';
+				break;
+			case 'expired':
+				return 'Expired';
 				break;
 			default:
 				throw new Exception('Unknown status');

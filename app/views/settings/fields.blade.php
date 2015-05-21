@@ -28,6 +28,12 @@
 	<td>{{Form::text('address',null,['class'=>'form-control'])}}</td>
 </tr>
 <tr>
+	<td>Order TTL (Minutes)
+		<p class="explainer">How long should an order stay alive before it expires? Set at 0 to never expire.</p>
+	</td>
+	<td>{{Form::text('order_ttl_minutes',null,['class'=>'form-control'])}}</td>
+</tr>
+<tr>
 	<td>
 		Site Info
 		<p class="explainer">Information about your site and your product. This field will be interepreted as markdown.</p>
