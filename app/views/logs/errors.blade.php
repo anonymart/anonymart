@@ -7,7 +7,7 @@
 	@if(file_exists(ERROR_LOG))
 		<pre>{{{File::get(ERROR_LOG)}}}</pre>
 	@else
-		<div class="alert alert-info">
+		<div class="alert alert-info" id="noErrorsAlert">
 			No errors so far.
 		</div>
 	@endif
