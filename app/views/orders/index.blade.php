@@ -16,7 +16,7 @@
 			<th></th>
 		</tr>
 		@foreach($orders as $order)
-		<tr>
+		<tr class="order">
 			<td>
 				{{{$order->product->title}}}
 				@if($order->product->trashed())

@@ -5,7 +5,7 @@
 		<li class="{{{$tab === $status ? 'active' : ''}}}">
 			<a href="/orders?status={{{$tab}}}">
 				{{{$value}}}
-				({{{Order::queryByStatus($tab)->count()}}})
+				({{{Order::where('status',$tab)->count()}}})
 			</a>
 		</li>
 	@endforeach

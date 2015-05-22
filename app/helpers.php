@@ -11,6 +11,18 @@ function get_blockchain(){
 	return $blockchain;
 }
 
+function withdraw(){
+	$blockchain = get_blockchain();
+	$balance_btc = $blockchain->Wallet->getBalance();
+	$withdrawl_minimum_btc = Settings::get('withdrawl_minimum_btc');
+
+	if(bccomp($balance_btc,$withdrawl_minimum_btc,BC_SCALE)!==1)
+		return;
+
+	$withdrawl_btc = bcsub($balance_btc,MINING_FEE,BC_SCALE);
+	$blockchain->Wallet->send(Settings::get('address'),$withdrawl_btc,null,MINING_FEE);
+}
+
 function get_form_boolean($name){
 	return Form::select($name,[1=>'Yes',0=>'No'],null,['class'=>'form-control']);
 }
@@ -76,7 +88,7 @@ function force_type($var,$type){
 				return $var;
 			break;
 		case 'boolean':
-			return !!intval($var);
+			return $var==='1';
 			break;
 		case 'float':
 			return floatval($var);
@@ -96,4 +108,19 @@ function get_random_string($length = 32){
         $randomString .= $characters[rand(0, strlen($characters)-1)];
     
     return $randomString;
+}
+
+function update_rates(){
+	$blockchain = get_blockchain();
+	$rates = $blockchain->Rates->get();
+	
+	if($rates===null)
+		throw new Exception('Invalid rates data');
+
+	$rates_clean = [];
+
+	foreach($rates as $currency=>$rate)
+		$rates_clean[$currency] = $rate->buy;
+
+	file_put_contents(base_path().'/data/rates.json',json_encode($rates_clean));
 }

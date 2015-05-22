@@ -4,21 +4,21 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
-class CheckUnpaidOrdersCommand extends Command {
+class CronCommand extends Command {
 
 	/**
 	 * The console command name.
 	 *
 	 * @var string
 	 */
-	protected $name = 'app:check-unpaid-orders';
+	protected $name = 'app:cron';
 
 	/**
 	 * The console command description.
 	 *
 	 * @var string
 	 */
-	protected $description = 'Check the balance of unpaid orders and update them.';
+	protected $description = 'Command description.';
 
 	/**
 	 * Create a new command instance.
@@ -37,7 +37,35 @@ class CheckUnpaidOrdersCommand extends Command {
 	 */
 	public function fire()
 	{
-		Order::checkUnpaidOrders();
+		$name = $this->argument('name');
+
+		$job = new Job(['name'=>$name]);
+		$job->save();
+
+		try{
+			switch($name){
+				case 'update-rates':
+					update_rates();
+					break;
+				case 'check-unpaid-orders':
+					Order::checkUnpaidOrders();
+					break;
+				case 'clear-old-jobs':
+					Job::clearOldJobs();
+					break;
+				case 'withdraw':
+					withdraw();
+					break;
+				default:
+					throw new Exception("Unkown job '$name'");
+					break;
+			}
+		}catch(Exception $e){
+			$job->markFailed($e->getMessage());
+		}
+
+		$job->markCompleted();
+
 	}
 
 	/**
@@ -48,7 +76,7 @@ class CheckUnpaidOrdersCommand extends Command {
 	protected function getArguments()
 	{
 		return array(
-			//array('example', InputArgument::REQUIRED, 'An example argument.'),
+			array('name', InputArgument::REQUIRED, 'name'),
 		);
 	}
 

@@ -64,7 +64,10 @@ class Settings extends \Eloquent {
 			,'address'=>'string'
 			,'blockchain_guid'=>'string'
 			,'blockchain_password'=>'string'
+			,'withdrawl_minimum_btc'=>'string'
+			,'order_ttl_minutes'=>'integer'
 			,'pgp_public'=>'string'
+			,'is_testing'=>'boolean'
 		];
 	}
 
@@ -75,7 +78,10 @@ class Settings extends \Eloquent {
 			,'currency'=>'required'
 			,'blockchain_guid'=>'required'
 			,'blockchain_password'=>'required'
+			,'withdrawl_minimum_btc'=>'required|numeric'
+			,'order_ttl_minutes'=>'required|integer'
 			,'pgp_public'=>'required|pgp_public'
+			,'is_testing'=>'boolean'
 		];
 	}
 

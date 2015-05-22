@@ -31,7 +31,7 @@ Route::group(['before'=>'settings.complete'],function(){
 	Route::group(['before'=>'order.code'],function(){
 		Route::get('orders/{order_id}','OrdersController@show');
 		Route::group(['before'=>'csrf'],function(){
-			Route::post('orders/{order_id}/mark','OrdersController@mark');
+			Route::post('orders/{order_id}/markCancelled','OrdersController@markCancelled');
 			Route::post('orders/{order_id}/messages/create','MessagesController@store');
 		});
 	});
@@ -44,15 +44,33 @@ Route::group(['before'=>'settings.complete'],function(){
 	Route::group(['before'=>'auth'],function(){
 		Route::get('logout','AuthController@getLogout');
 		Route::get('settings/edit','SettingsController@edit');
+		Route::get('settings/password','SettingsController@edit_password');
 		Route::get('orders','OrdersController@index');
 		Route::get('products/create','ProductsController@create');
 		Route::get('products/{product_id}/edit','ProductsController@edit');
+		Route::get('logs/errors',function(){
+			return View::make('logs.errors');
+		});
+		Route::get('logs/cron',function(){
+			$jobsQuery = Job::orderBy('created_at','DESC')->take(100);
+
+			if(Input::has('name'))
+				$jobs = $jobsQuery->where('name',Input::get('name'))->get();
+			else
+				$jobs = $jobsQuery->get();
+
+			return View::make('logs.cron',[
+				'jobs'=>$jobs
+				,'jobNameOptions'=>Job::getNameOptions()
+			]);
+		});
 
 		Route::group(['before'=>'csrf'],function(){
 			Route::post('settings/edit','SettingsController@update');
 			Route::post('products/create','ProductsController@store');
 			Route::post('products/{product_id}/edit','ProductsController@update');
 			Route::post('products/{product_id}/destroy','ProductsController@destroy');
+			Route::post('orders/{order_id}/markShipped','OrdersController@markShipped');
 		});
 	});
 

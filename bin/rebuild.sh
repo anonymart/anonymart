@@ -1,7 +1,13 @@
-yes | tugboat rebuild anonymart -k=11861819
+yes | tugboat rebuild anonymart-$1 -k=11893549
 sleep 10
-tugboat wait anonymart --state active
+tugboat wait anonymart-$1 --state active
 sleep 10
-ssh-keygen -R 45.55.192.76
+
+dropletInfo=$(tugboat info anonymart-$1)
+dropletInfoParts=($dropletInfo)
+ip=${dropletInfoParts[16]}
+echo $ip
+
+ssh-keygen -R $ip
 sleep 10
-ssh root@45.55.192.76 -i ~/.ssh/digitalocean 'bash -s' < bin/ssh.sh
+ssh root@$ip -i ~/.ssh/digitalocean 'bash -s' < bin/ssh.sh $1

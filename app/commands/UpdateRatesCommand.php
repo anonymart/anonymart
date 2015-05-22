@@ -36,28 +36,7 @@ class UpdateRatesCommand extends Command {
 	 */
 	public function fire()
 	{
-		$url = 'https://api.bitcoinaverage.com/all';
-		$ch = curl_init();
-		curl_setopt($ch, CURLOPT_URL, $url);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		// curl_setopt($ch, CURLOPT_PROXY, "http://127.0.0.1:9150/");
-		// curl_setopt($ch, CURLOPT_PROXYTYPE, 7);
-		$output = curl_exec($ch);
-		$curl_error = curl_error($ch);
-		curl_close($ch);
-
-		$rates = json_decode($output,true);
-
-		if($rates===null)
-			throw new Exception('Invalid rates data');
-
-		$rates_clean = [];
-
-		foreach($rates as $currency=>$rate)
-			if(isset($rate['averages']['ask']))
-				$rates_clean[$currency] = $rate['averages']['ask'];
-
-		file_put_contents(base_path().'/data/rates.json',json_encode($rates_clean));
+		update_rates();
 	}
 
 	/**

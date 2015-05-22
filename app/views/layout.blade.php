@@ -16,14 +16,15 @@
 		<header class="navbar navbar-fixed-top navbar-inverse">
 			<div class="container">
 		    	<div class="navbar-header">
-		    		<a href="/" class="navbar-brand">{{{Settings::get('site_name')}}}</a>
+		    		<a href="/" class="navbar-brand hidden-xs hidden-sm">{{{Settings::get('site_name')}}}</a>
 		    	</div>
-		    	<nav class="collapse navbar-collapse bs-navbar-collapse">
+		    	<nav class="">
 		      		<ul class="nav navbar-nav navbar-right">
 		        		@if(Auth::check())
 		        			<li><a href="/products/create">Add Products</a></li>
 		        			<li><a href="/orders">Orders</a></li>
 		        			<li><a href="/settings/edit">Settings</a></li>
+		        			<li><a href="/logs/errors">Logs</a></li>
 		        			<li><a href="/logout">Logout</a></li>
 		        		@endif
 		        		@if(User::count()>0)
@@ -35,6 +36,10 @@
 			</div>
 		</header>
 		<div class="container">
+			<div class="alert alert-info" style="display:none" id="javascriptAlert">
+				Javascript is enabled. This may be a security risk.
+			</div>
+			<script>javascriptAlert.style.display='block'</script>
 			@if($errors && count($errors)>0)
 				<div class="alert alert-danger">
 					<ul>

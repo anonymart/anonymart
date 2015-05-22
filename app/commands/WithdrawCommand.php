@@ -4,21 +4,21 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
-class CheckUnpaidOrdersCommand extends Command {
+class WithdrawCommand extends Command {
 
 	/**
 	 * The console command name.
 	 *
 	 * @var string
 	 */
-	protected $name = 'app:check-unpaid-orders';
+	protected $name = 'app:withdraw';
 
 	/**
 	 * The console command description.
 	 *
 	 * @var string
 	 */
-	protected $description = 'Check the balance of unpaid orders and update them.';
+	protected $description = 'Withdraw funds to cashout address.';
 
 	/**
 	 * Create a new command instance.
@@ -37,7 +37,8 @@ class CheckUnpaidOrdersCommand extends Command {
 	 */
 	public function fire()
 	{
-		Order::checkUnpaidOrders();
+		withdraw();
+
 	}
 
 	/**

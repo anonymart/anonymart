@@ -16,9 +16,7 @@ class CreateOrdersTable extends Migration {
 			$table->increments('id');
 			$table->integer('product_id')->unsigned();
 			$table->foreign('product_id')->references('id')->on('products');
-			$table->boolean('is_paid')->default(false);
-			$table->boolean('is_shipped')->default(false);
-			$table->boolean('is_cancelled')->default(false);
+			$table->string('status')->index();
 			$table->integer('quantity')->unsigned();
 			$table->string('product_amount_btc');
 			$table->string('balance_btc')->default('0');

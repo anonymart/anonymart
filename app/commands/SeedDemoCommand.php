@@ -53,6 +53,7 @@ class SeedDemoCommand extends Command {
 			,'address'=>'147BM4WmH17PPxhiH1kyNppWuyCAwn3Jm4'
 			,'blockchain_guid'=>$this->argument('blockchain_guid')
 			,'blockchain_password'=>$this->argument('blockchain_password')
+			,'wallet_maximum_btc'=>'1'
 			,'site_info'=>"## This is a demo for Anonymart\r\n\r\nNothing here is actually for sale, so you'll lose anything you spend here."
 			,'pgp_public'=>
 '-----BEGIN PGP PUBLIC KEY BLOCK-----

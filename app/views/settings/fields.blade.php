@@ -7,6 +7,20 @@
 	<td>{{Form::select('currency',get_currency_options(),null,['class'=>'form-control'])}}</td>
 </tr>
 <tr>
+	<td>Blockchain.info Guid</td>
+	<td>{{Form::text('blockchain_guid',null,['class'=>'form-control'])}}</td>
+</tr>
+<tr>
+	<td>Blockchain.info Password</td>
+	<td>{{Form::text('blockchain_password',null,['class'=>'form-control'])}}</td>
+</tr>
+<tr>
+	<td>Minimum Withdrawl (BTC)
+		<p class="explainer">Smaller minimums reduce your risk, but result in higher mining fees.</p>
+	</td>
+	<td>{{Form::text('withdrawl_minimum_btc',null,['class'=>'form-control'])}}</td>
+</tr>
+<tr>
 	<td>
 		Cashout Address
 		<p class="explainer">Where should we send your bitcoin?</p>
@@ -14,12 +28,10 @@
 	<td>{{Form::text('address',null,['class'=>'form-control'])}}</td>
 </tr>
 <tr>
-	<td>Blockchain.info Guid</td>
-	<td>{{Form::text('blockchain_guid',null,['class'=>'form-control'])}}</td>
-</tr>
-<tr>
-	<td>Blockchain.info Password</td>
-	<td>{{Form::text('blockchain_password',null,['class'=>'form-control'])}}</td>
+	<td>Order TTL (Minutes)
+		<p class="explainer">How long should an order stay alive before it expires?</p>
+	</td>
+	<td>{{Form::text('order_ttl_minutes',null,['class'=>'form-control'])}}</td>
 </tr>
 <tr>
 	<td>
@@ -33,5 +45,21 @@
 	</td>
 	<td>
 		{{Form::textarea('pgp_public',null,['class'=>'form-control'])}}
+	</td>
+</tr>
+<tr>
+	<td>Password</td>
+	<td>{{Form::password('password',['class'=>'form-control'])}}</td>
+</tr>
+<tr>
+	<td>Password Confirmation</td>
+	<td>{{Form::password('password_confirmation',['class'=>'form-control'])}}</td>
+</tr>
+<tr>
+	<td>Test Mode?
+		<p class="explainer">If you are using this in production, leave this unchecked</p>
+	</td>
+	<td>
+		{{Form::checkbox('is_testing')}}
 	</td>
 </tr>
