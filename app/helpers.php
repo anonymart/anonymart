@@ -88,7 +88,7 @@ function force_type($var,$type){
 				return $var;
 			break;
 		case 'boolean':
-			return !!intval($var);
+			return $var==='1';
 			break;
 		case 'float':
 			return floatval($var);

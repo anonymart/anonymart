@@ -14,13 +14,10 @@ module.exports = new (function() {
     if(!process.env.LS_BLOCKCHAIN_PASSWORD)
         return console.log('LS_BLOCKCHAIN_PASSWORD shell var missing'.red)
 
-    if(process.env.LS_ONION){
-        console.info('Onion:'.green,process.env.LS_ONION)
+    if(process.env.LS_ONION)
         baseUrl = 'http://'+process.env.LS_ONION
-    }
 
     console.info('Base Url:'.green,baseUrl)
-   
     console.info('Blockchain Guid:'.green,process.env.LS_BLOCKCHAIN_GUID)
     console.info('Blockchain Password:'.green,process.env.LS_BLOCKCHAIN_PASSWORD)
 
@@ -30,9 +27,8 @@ module.exports = new (function() {
     };
 
     testCases['site setup'] = function (client) {
-        console.info(baseUrl);
         client
-            .url('u4cga2qo2mr7paru.onion')
+            .url(baseUrl)
             .setValue('[name=site_name]', 'Satoshi\'s Lemonade Stand')
             .setValue('[name=currency]', 'USD')
             .setValue('[name=blockchain_guid]',process.env.LS_BLOCKCHAIN_GUID)
@@ -44,6 +40,7 @@ module.exports = new (function() {
             .setValue('[name=pgp_public]','-----BEGIN PGP PUBLIC KEY BLOCK----- -----END PGP PUBLIC KEY BLOCK-----')
             .setValue('[name=password]','password')
             .setValue('[name=password_confirmation]','password')
+            .click('[name=is_testing]')
             .submitForm('form')
             .assert.containsText("h1", "Hello World")
     };

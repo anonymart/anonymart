@@ -31,7 +31,7 @@ class SettingsController extends \BaseController {
 	 */
 	public function store()
 	{
-		
+
 		$inputs = Input::all();
 		$rules = array_merge(Settings::make()->rules,[
 			'password'=>'required|confirmed'

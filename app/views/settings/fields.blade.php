@@ -55,3 +55,11 @@
 	<td>Password Confirmation</td>
 	<td>{{Form::password('password_confirmation',['class'=>'form-control'])}}</td>
 </tr>
+<tr>
+	<td>Test Mode?
+		<p class="explainer">If you are using this in production, leave this unchecked</p>
+	</td>
+	<td>
+		{{Form::checkbox('is_testing')}}
+	</td>
+</tr>
