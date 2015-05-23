@@ -36,7 +36,7 @@
 			</div>
 		</header>
 		<div class="container">
-			<div class="alert alert-info" style="display:none" id="javascriptAlert">
+			<div class="alert alert-danger" style="display:none;text-align:center;" id="javascriptAlert">
 				Javascript is enabled. This may be a security risk.
 			</div>
 			<script>javascriptAlert.style.display='block'</script>
