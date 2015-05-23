@@ -68,6 +68,7 @@ class Settings extends \Eloquent {
 			,'order_ttl_minutes'=>'integer'
 			,'pgp_public'=>'string'
 			,'is_testing'=>'boolean'
+			,'do_auto_update'=>'boolean'
 		];
 	}
 
@@ -82,6 +83,7 @@ class Settings extends \Eloquent {
 			,'order_ttl_minutes'=>'required|integer'
 			,'pgp_public'=>'required|pgp_public'
 			,'is_testing'=>'boolean'
+			,'do_auto_update'=>'boolean'
 		];
 	}
 

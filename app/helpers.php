@@ -23,6 +23,10 @@ function withdraw(){
 	$blockchain->Wallet->send(Settings::get('address'),$withdrawl_btc,null,MINING_FEE);
 }
 
+function update(){
+	exec("/var/www/anonymart/bin/update.sh");
+}
+
 function get_form_boolean($name){
 	return Form::select($name,[1=>'Yes',0=>'No'],null,['class'=>'form-control']);
 }

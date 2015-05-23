@@ -56,6 +56,15 @@
 	<td>{{Form::password('password_confirmation',['class'=>'form-control'])}}</td>
 </tr>
 <tr>
+	<td>
+		Enable Automatically Update?
+		<p class="explainer">Leave this checked and {{{PROJECT_NAME}}} will apply security features and new updates every night.</p>
+	</td>
+	<td>
+		{{Form::checkbox('do_auto_update',"1",Settings::make()->isSet?null:true)}}
+	</td>
+</tr>
+<tr>
 	<td>Test Mode?
 		<p class="explainer">If you are using this in production, leave this unchecked</p>
 	</td>
