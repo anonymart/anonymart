@@ -46,8 +46,8 @@ service nginx restart
 chown -R www-data:www-data /var/www/anonymart/ 
 chown -R www-data:www-data /var/www/anonymart/data
 chown -R www-data:www-data /var/www/anonymart/app/storage
+chmod u+rwx /var/www/anonymart/bin/*
 
-chmod u+rwx /var/www/anonymart/bin/route.sh
 /var/www/anonymart/bin/route.sh
 
 crontab /var/www/anonymart/configs/cron
