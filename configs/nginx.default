@@ -21,8 +21,3 @@ server {
         }
 
 }
-
-http {
-    server_tokens off;
-    error_log /dev/null crit;
-}
