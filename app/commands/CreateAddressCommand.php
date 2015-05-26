@@ -40,6 +40,8 @@ class CreateAddressCommand extends Command {
 	 */
 	public function fire()
 	{
+		$math = Bitcoin::getMath();
+		$network = Bitcoin::getNetwork();
 		$master = HierarchicalKeyFactory::generateMasterKey();
 		echo "Master key (m)\n";
 		echo "   " . $master->toExtendedPrivateKey($network) . "\n";

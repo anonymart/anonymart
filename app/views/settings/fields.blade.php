@@ -7,25 +7,6 @@
 	<td>{{Form::select('currency',get_currency_options(),null,['class'=>'form-control'])}}</td>
 </tr>
 <tr>
-	<td>MPK (Master Public Key)
-		<p class="explainer" style="margin-bottom:0">
-			Your should create a fresh MPK just for this Anonymart.
-			<br>Do not use an MPK from a previous Anonymart install.
-			<br>To get a new MPK using Electrum:
-		</p>
-		<ol class="explainer">
-			<li>File > New/Restore
-				<ol>
-					<li>Create New Wallet</li>
-					<li>Standard Wallet</li>
-				</ol>
-			</li>
-			<li>Wallet > Master Public Keys</li>
-		</ol>
-	</td>
-	<td>{{Form::text('mpk',null,['class'=>'form-control'])}}</td>
-</tr>
-<tr>
 	<td>Order TTL (Minutes)
 		<p class="explainer">How long should an order stay alive before it expires?</p>
 	</td>

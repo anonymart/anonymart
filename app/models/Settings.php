@@ -61,7 +61,6 @@ class Settings extends \Eloquent {
 			,'tagline'=>'string'
 			,'currency'=>'string'
 			,'site_info'=>'string'
-			,'mpk'=>'string'
 			,'order_ttl_minutes'=>'integer'
 			,'pgp_public'=>'string'
 			,'is_testing'=>'boolean'
@@ -73,7 +72,6 @@ class Settings extends \Eloquent {
 		return [
 			'site_name'=>'required'
 			,'currency'=>'required'
-			,'mpk'=>'required'
 			,'order_ttl_minutes'=>'required|integer'
 			,'pgp_public'=>'required|pgp_public'
 			,'is_testing'=>'boolean'
