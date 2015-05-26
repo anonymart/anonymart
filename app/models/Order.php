@@ -124,3 +124,8 @@ class Order extends \Eloquent {
 Order::creating(function($order){
 	$order->code = get_random_string(64);
 });
+
+Order::created(function($order){
+	$order->address = addr_from_mpk(Settings::get('mpk'),$order->id);
+	$order->save();
+});

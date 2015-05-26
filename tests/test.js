@@ -8,18 +8,14 @@ module.exports = new (function() {
         ,baseUrl = 'http://localhost:8000'
 
 
-    if(!process.env.LS_BLOCKCHAIN_GUID)
-        return console.log('LS_BLOCKCHAIN_GUID shell var missing'.red)
-
-    if(!process.env.LS_BLOCKCHAIN_PASSWORD)
-        return console.log('LS_BLOCKCHAIN_PASSWORD shell var missing'.red)
+    if(!process.env.LS_MPK)
+        return console.log('MPK shell var missing'.red)
 
     if(process.env.LS_ONION)
         baseUrl = 'http://'+process.env.LS_ONION
 
     console.info('Base Url:'.green,baseUrl)
-    console.info('Blockchain Guid:'.green,process.env.LS_BLOCKCHAIN_GUID)
-    console.info('Blockchain Password:'.green,process.env.LS_BLOCKCHAIN_PASSWORD)
+    console.info('MPK:'.green,process.env.LS_MPK)
 
 
     testCases.after = function(client) {
@@ -31,10 +27,7 @@ module.exports = new (function() {
             .url(baseUrl)
             .setValue('[name=site_name]', 'Satoshi\'s Lemonade Stand')
             .setValue('[name=currency]', 'USD')
-            .setValue('[name=blockchain_guid]',process.env.LS_BLOCKCHAIN_GUID)
-            .setValue('[name=blockchain_password]',process.env.LS_BLOCKCHAIN_PASSWORD)
-            .setValue('[name=withdrawl_minimum_btc]','0')
-            .setValue('[name=address]','147BM4WmH17PPxhiH1kyNppWuyCAwn3Jm4')
+            .setValue('[name=mpk]',process.env.LS_MPK)
             .setValue('[name=order_ttl_minutes]','30')
             .setValue('[name=site_info]','#Hello World\r\nWelcome to my Lemonade Stand!')
             .setValue('[name=pgp_public]','-----BEGIN PGP PUBLIC KEY BLOCK----- -----END PGP PUBLIC KEY BLOCK-----')
@@ -142,6 +135,7 @@ module.exports = new (function() {
             .setValue('[name=pgp_public]','-----BEGIN PGP PUBLIC KEY BLOCK----- -----END PGP PUBLIC KEY BLOCK-----')
             .setValue('[name=captcha]','testing')
             .submitForm('form')
+            .pause(100000)
             .assert.urlContains("/orders/1?code=")
             .execute(function(){
                 return document.getElementsByClassName('message').length

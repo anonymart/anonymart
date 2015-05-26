@@ -7,25 +7,23 @@
 	<td>{{Form::select('currency',get_currency_options(),null,['class'=>'form-control'])}}</td>
 </tr>
 <tr>
-	<td>Blockchain.info Guid</td>
-	<td>{{Form::text('blockchain_guid',null,['class'=>'form-control'])}}</td>
-</tr>
-<tr>
-	<td>Blockchain.info Password</td>
-	<td>{{Form::text('blockchain_password',null,['class'=>'form-control'])}}</td>
-</tr>
-<tr>
-	<td>Minimum Withdrawl (BTC)
-		<p class="explainer">Smaller minimums reduce your risk, but result in higher mining fees.</p>
+	<td>MPK (Master Public Key)
+		<p class="explainer" style="margin-bottom:0">
+			Your should create a fresh MPK just for this Anonymart.
+			<br>Do not use an MPK from a previous Anonymart install.
+			<br>To get a new MPK using Electrum:
+		</p>
+		<ol class="explainer">
+			<li>File > New/Restore
+				<ol>
+					<li>Create New Wallet</li>
+					<li>Standard Wallet</li>
+				</ol>
+			</li>
+			<li>Wallet > Master Public Keys</li>
+		</ol>
 	</td>
-	<td>{{Form::text('withdrawl_minimum_btc',null,['class'=>'form-control'])}}</td>
-</tr>
-<tr>
-	<td>
-		Cashout Address
-		<p class="explainer">Where should we send your bitcoin?</p>
-	</td>
-	<td>{{Form::text('address',null,['class'=>'form-control'])}}</td>
+	<td>{{Form::text('mpk',null,['class'=>'form-control'])}}</td>
 </tr>
 <tr>
 	<td>Order TTL (Minutes)
@@ -57,8 +55,8 @@
 </tr>
 <tr>
 	<td>
-		Enable Automatically Update?
-		<p class="explainer">Leave this checked and {{{PROJECT_NAME}}} will apply security features and new updates every night.</p>
+		Enable Automatic Updates?
+		<p class="explainer">Leave this checked and {{{PROJECT_NAME}}} will apply security updates and new features daily.</p>
 	</td>
 	<td>
 		{{Form::checkbox('do_auto_update',"1",Settings::make()->isSet?null:true)}}

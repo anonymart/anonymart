@@ -7,20 +7,14 @@ function get_blockchain(){
 	$blockchain->curl_setopt(CURLOPT_PROXYTYPE, 7);
 	$blockchain->curl_setopt(CURLOPT_RETURNTRANSFER, 1);
 	$blockchain->curl_setopt(CURLOPT_VERBOSE, 0);
-	$blockchain->Wallet->credentials(Settings::get('blockchain_guid'), Settings::get('blockchain_password'));
 	return $blockchain;
 }
 
-function withdraw(){
-	$blockchain = get_blockchain();
-	$balance_btc = $blockchain->Wallet->getBalance();
-	$withdrawl_minimum_btc = Settings::get('withdrawl_minimum_btc');
-
-	if(bccomp($balance_btc,$withdrawl_minimum_btc,BC_SCALE)!==1)
-		return;
-
-	$withdrawl_btc = bcsub($balance_btc,MINING_FEE,BC_SCALE);
-	$blockchain->Wallet->send(Settings::get('address'),$withdrawl_btc,null,MINING_FEE);
+function get_electrum_words($N=12){
+	$words = [];
+	for($n=0;$n<$N;$n++)
+		$words[]=BitWasp\BitcoinLib\Electrum::$words[array_rand(BitWasp\BitcoinLib\Electrum::$words)];
+	return $words;
 }
 
 function update(){

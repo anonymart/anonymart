@@ -20,7 +20,7 @@ class CreateOrdersTable extends Migration {
 			$table->integer('quantity')->unsigned();
 			$table->string('product_amount_btc');
 			$table->string('balance_btc')->default('0');
-			$table->string('address');
+			$table->string('address')->nullable();
 			$table->text('pgp_public')->nullable();
 			$table->string('code');
 			$table->timestamps();

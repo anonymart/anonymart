@@ -9,6 +9,20 @@
 	},{
         "type": "vcs",
         "url": "https://github.com/mauris/captcha"
+    },{
+        "type": "package",
+        "package": {
+            "name": "anonymart/bitcoin",
+            "version": "dev-master",
+            "source": {
+                "url": "https://github.com/anonymart/bitcoin-php.git",
+                "type": "git",
+                "reference": "master"
+            },
+            "autoload": {
+                "classmap": [""]
+            }
+        }
     }],
 	"require": {
 		"laravel/framework": "4.2.*"
@@ -16,6 +30,8 @@
 		,"alfredo-ramos/parsedown-extra-laravel": "~0.2"
 		,"vohof/transmission": "1.0.*"
 		,"blockchain/blockchain": "dev-master"
+		,"anonymart/bitcoin":"*@dev",
+		"mdanter/ecc": "^0.2.0"
 	},"require-dev": {
 	    "way/generators": "~2.0"
 	},
