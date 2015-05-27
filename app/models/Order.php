@@ -134,6 +134,13 @@ class Order extends \Eloquent {
 			$order->check();
 	}
 
+	public static function expireUnpaidOrders(){
+
+		$orders = Order::where('status','unpaid')
+			->where('created_at','<=',Order::getCuttoffTimestamp())
+			->update(["status" => "expired"]);
+	}
+
 }
 
 Order::creating(function($order){

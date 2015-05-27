@@ -1,4 +1,5 @@
 * * * * * php /var/www/anonymart/artisan app:cron check-unpaid-orders &>/dev/null &
+* * * * * php /var/www/anonymart/artisan app:cron expire-unpaid-orders &>/dev/null &
 0 * * * * php /var/www/anonymart/artisan app:cron update-rates &>/dev/null &
 5 * * * * php /var/www/anonymart/artisan app:cron clear-old-jobs &>/dev/null &
 20 4 * * * php /var/www/anonymart/artisan app:cron auto-update &>/dev/null &

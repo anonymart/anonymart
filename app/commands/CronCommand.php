@@ -50,6 +50,9 @@ class CronCommand extends Command {
 				case 'check-unpaid-orders':
 					Order::checkUnpaidOrders();
 					break;
+				case 'expire-unpaid-orders':
+					Order::expireUnpaidOrders();
+					break;
 				case 'clear-old-jobs':
 					Job::clearOldJobs();
 					break;
