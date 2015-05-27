@@ -1,6 +1,6 @@
 export DEBIAN_FRONTEND=noninteractive
 
-echo deb http://deb.torproject.org/torproject.org jessie main >> /etc/apt/sources.list
+echo deb http://deb.torproject.org/torproject.org wheezy main >> /etc/apt/sources.list
 
 apt-get update -y 
 apt-get upgrade -y

@@ -1,4 +1,4 @@
-yes | tugboat rebuild anonymart-$1 -k=11893549
+yes | tugboat rebuild anonymart-$1 -k=10322059
 sleep 10
 tugboat wait anonymart-$1 --state active
 sleep 10
