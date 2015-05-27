@@ -8,7 +8,7 @@ apt-get install tor -y
 
 apt-get upgrade -y
 apt-get remove --purge rsyslog exim postfix sendmail wget -y
-apt-get -y install nginx curl php5 php5-fpm mysql-server php5-mysql php5-cli php5-mcrypt php5-curl php5-gd tor ufw fail2ban unattended-upgrades -qq
+apt-get -y install nginx curl php5 php5-fpm mysql-server php5-mysql php5-cli php5-mcrypt php5-curl php5-gd php5-gmp tor ufw fail2ban unattended-upgrades -qq
 
 ufw allow ssh
 ufw enable
