@@ -33,7 +33,7 @@
 			<button class="btn btn-danger">Cancel</button>
 		</form>
 	@endif
-	@if(Auth::check())
+	@if(Auth::check() && $order->status!=='shipped')
 		<form action="{{{$order->mark_shipped_url}}}" method="post" style="display:inline-block" id="markShippedForm">
 			@if(Auth::guest())
 				{{Form::hidden('code',$order->code)}}
