@@ -4,7 +4,7 @@
 			<div class="panel-title">{{{$product->title}}}</div>
 		</div>
 		<div class="panel-body">
-			{{$product->img}}
+			<div class='product-image' style='background-image:url({{{$product->image_url}}})'></div>
 		</div>
 		<div class="panel-footer">
 			<div style="float:left">{{{$product->prices}}}</div>

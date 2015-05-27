@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-	<h1>Submit your order for {{$product->title}}</h1>
+	<h1>Submit your order for {{{$product->title}}}</h1>
 	<div class="row">
 		<div class="col-sm-5">
 			@include('pgp_public')

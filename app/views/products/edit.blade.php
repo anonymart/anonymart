@@ -8,7 +8,7 @@
 		<tr>
 			<td></td>
 			<td>
-				{{$product->img}}
+				<div class='product-image' style='background-image:url({{{$product->image_url}}})'></div>
 			</td>
 		</tr>
 	@include('form.close')

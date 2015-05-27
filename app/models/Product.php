@@ -53,10 +53,6 @@ class Product extends \Eloquent {
 		return URL::to("products/{$this->id}/orders/create");
 	}
 
-	public function getImgAttribute(){
-		return "<div class='product-image' style='background-image:url({$this->image_url})'></div>";
-	}
-
 	public static function getRules(){
 		return [
 			'title'=>'required'
