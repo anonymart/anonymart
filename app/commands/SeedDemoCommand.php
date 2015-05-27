@@ -50,6 +50,7 @@ class SeedDemoCommand extends Command {
 		$settings = [
 			'site_name'=>"Satoshi's Lemonade Stand"
 			,'currency'=>'USD'
+			,'order_ttl_minutes'=>30
 			,'site_info'=>"## This is a demo for Anonymart\r\n\r\nNothing here is actually for sale, so you'll lose anything you spend here."
 			,'pgp_public'=>
 '-----BEGIN PGP PUBLIC KEY BLOCK-----

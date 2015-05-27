@@ -9,7 +9,7 @@
 	</div>
 	@endif
 	<h1>Order for {{{$order->product->title}}} x {{{$order->quantity}}}: {{{$order->status_pretty}}}</h1>
-	@if($order->status==='unpaid' && Auth::guest())
+	@if($order->isExpired === false && $order->status==='unpaid' && Auth::guest())
 		<p>
 			Please send {{{$order->total_amount_btc}}} BTC to <code id="address">{{{$order->address}}}</code> within {{{$order->ttl_minutes}}} minutes.			
 		</p>
@@ -18,7 +18,7 @@
 	<p><b>Address:</b> {{{$order->address}}}</p>
 	@endif
 	<p><b>Receieved:</b> {{{$order->balance_btc}}} BTC</p>
-	@if($order->status==='expired')
+	@if($order->isExpired===true)
 		<div class="alert alert-danger">
 			This order has expired
 		</div>

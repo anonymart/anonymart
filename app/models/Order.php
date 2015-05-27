@@ -30,12 +30,24 @@ class Order extends \Eloquent {
 		return $this->status==='unpaid'|| $this->status==='paid';
 	}
 
+	public function getIsExpiredAttribute(){
+		if($this->status==='expired')
+			return true;
+
+		return $this->ttl_minutes>0;
+	}
+
 	public function getTotalAmountBtcAttribute(){
 		return $this->product_amount_btc;
 	}
 
 	public function getTtlMinutesAttribute(){
-		return Settings::get('order_ttl_minutes') - $this->created_at->diffInMinutes();
+		$ttl_minutes = Settings::get('order_ttl_minutes') - $this->created_at->diffInMinutes();
+
+		if($ttl_minutes>0)
+			return $ttl_minutes;
+		else
+			return 0;
 	}
 
 	public function mark($status){
