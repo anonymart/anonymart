@@ -57,7 +57,7 @@ class CronCommand extends Command {
 					withdraw();
 					break;
 				case 'auto-update':
-					if(!Settings::get('do_auto_update'))
+					if(Settings::get('do_auto_update')!==true)
 						throw new Exception('Auto update disabled');
 					update();
 					break;

@@ -13,7 +13,7 @@ class Message extends \Eloquent {
 	}
 
 	public function getTextAttribute(){
-		if(!$this->template)
+		if($this->template===null)
 			return $this->attributes['text'];
 
 		switch ($this->template) {

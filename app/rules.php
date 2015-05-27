@@ -4,10 +4,10 @@ Validator::extend('pgp_public', function($attribute, $value, $parameters){
 
     $value = trim($value);
 
-    if(!starts_with($value,PGP_PUBLIC_START))
+    if(starts_with($value,PGP_PUBLIC_START)!==true)
     	return false;
 
-    if(!ends_with($value,PGP_PUBLIC_END))
+    if(ends_with($value,PGP_PUBLIC_END)!==true)
     	return false;
 
     return true;
@@ -28,7 +28,7 @@ Validator::extend('mpk', function($attribute, $value, $parameters){
 
     $value = trim($value);
 
-    if(!starts_with($value,MPK_START))
+    if(starts_with($value,MPK_START)!==true)
         return false;
 
     return true;

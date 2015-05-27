@@ -74,10 +74,10 @@ function get_rates(){
 function is_pgp_message($value){
 	$value = trim($value);
 
-    if(!starts_with($value,PGP_MESSAGE_START))
+    if(starts_with($value,PGP_MESSAGE_START)!==TRUE)
     	return false;
 
-    if(!ends_with($value,PGP_MESSAGE_END))
+    if(ends_with($value,PGP_MESSAGE_END)!==TRUE)
     	return false;
 
     return true;
@@ -89,7 +89,7 @@ function force_type($var,$type){
 			return intval($var);
 			break;
 		case 'string':
-			if(!is_string($var))
+			if(is_string($var)!==true)
 				return '';
 			else
 				return $var;

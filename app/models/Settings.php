@@ -4,7 +4,7 @@ class Settings extends \Eloquent {
 
 	public function __construct(){
 
-		if(!$this->is_set) return;
+		if($this->is_set!==true) return;
 
 		$dataJson = File::get($this->path);
 		$data = json_decode($dataJson);
