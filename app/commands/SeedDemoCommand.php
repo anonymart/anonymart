@@ -69,7 +69,7 @@ GN8wraTACCQNXbYz8c/yPF5Fe4k662pY/jeyzN4XxE8rzyYWLVm/19QzixtsRc8n
 CnBXLCfNAuBXBdUWEMC/iLSE1P3mGGHN7cAzB0EJTHke
 =SLpY
 -----END PGP PUBLIC KEY BLOCK-----'
-			,'mpk'=>$this->argument('mpk');
+			,'mpk'=>$this->argument('mpk')
 		];
 		file_put_contents(base_path().'/data/settings.json',json_encode($settings));
 
