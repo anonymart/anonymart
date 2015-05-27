@@ -18,7 +18,7 @@ Validator::extend('pgp_message', function($attribute, $value, $parameters){
 });
 
 Validator::extend('captchaish',function($attribute, $value, $parameters){
-	if(Settings::get('is_testing'))
+	if(Settings::get('is_testing')===true)
 		return true;
 	else
 		return \Captcha::check($value);
