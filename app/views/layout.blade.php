@@ -3,7 +3,6 @@
 		<link rel="stylesheet" href="/assets/bootstrap.min.css">
 		<style>
 			.explainer{color:#666; font-size: 80%;}
-			body{padding-top: 70px}
 			.pgp_public,.pgp_message{font-size: 50%;max-width: 340px;}
 			.message .panel-body{overflow-x: auto;}
 			.message-push-left{margin-right: 40px;}
@@ -13,7 +12,7 @@
 		</style>
 	</head>
 	<body>
-		<header class="navbar navbar-fixed-top navbar-inverse">
+		<header class="navbar navbar-inverse navbar-top" style="border-radius: 0 !important;">
 			<div class="container">
 		    	<div class="navbar-header">
 		    		<a href="/" class="navbar-brand hidden-xs hidden-sm">{{{Settings::get('site_name')}}}</a>
@@ -36,7 +35,7 @@
 			</div>
 		</header>
 		<div class="container">
-			<div class="alert alert-info" style="display:none" id="javascriptAlert">
+			<div class="alert alert-danger" style="display:none;text-align:center;" id="javascriptAlert">
 				Javascript is enabled. This may be a security risk.
 			</div>
 			<script>javascriptAlert.style.display='block'</script>

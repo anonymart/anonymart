@@ -50,10 +50,7 @@ class SeedDemoCommand extends Command {
 		$settings = [
 			'site_name'=>"Satoshi's Lemonade Stand"
 			,'currency'=>'USD'
-			,'address'=>'147BM4WmH17PPxhiH1kyNppWuyCAwn3Jm4'
-			,'blockchain_guid'=>$this->argument('blockchain_guid')
-			,'blockchain_password'=>$this->argument('blockchain_password')
-			,'wallet_maximum_btc'=>'1'
+			,'order_ttl_minutes'=>30
 			,'site_info'=>"## This is a demo for Anonymart\r\n\r\nNothing here is actually for sale, so you'll lose anything you spend here."
 			,'pgp_public'=>
 '-----BEGIN PGP PUBLIC KEY BLOCK-----
@@ -73,6 +70,7 @@ GN8wraTACCQNXbYz8c/yPF5Fe4k662pY/jeyzN4XxE8rzyYWLVm/19QzixtsRc8n
 CnBXLCfNAuBXBdUWEMC/iLSE1P3mGGHN7cAzB0EJTHke
 =SLpY
 -----END PGP PUBLIC KEY BLOCK-----'
+			,'mpk'=>$this->argument('mpk')
 		];
 		file_put_contents(base_path().'/data/settings.json',json_encode($settings));
 
@@ -90,6 +88,8 @@ CnBXLCfNAuBXBdUWEMC/iLSE1P3mGGHN7cAzB0EJTHke
 
 		copy(base_path().'/assets/product_images/original.jpg',base_path().'/public/images/products/1');
 		copy(base_path().'/assets/product_images/rasberry.jpg',base_path().'/public/images/products/2');
+
+		exec('chown -R www-data:www-data /var/www/anonymart/data');
 	}
 
 	/**
@@ -101,8 +101,7 @@ CnBXLCfNAuBXBdUWEMC/iLSE1P3mGGHN7cAzB0EJTHke
 	{
 		return array(
 			array('password', InputArgument::REQUIRED, 'Site password.'),
-			array('blockchain_guid', InputArgument::REQUIRED, 'Blockchain Guid.'),
-			array('blockchain_password', InputArgument::REQUIRED, 'blockchain Password.'),
+			array('mpk', InputArgument::REQUIRED, 'MPK.'),
 		);
 	}
 

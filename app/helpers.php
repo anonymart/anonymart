@@ -7,20 +7,20 @@ function get_blockchain(){
 	$blockchain->curl_setopt(CURLOPT_PROXYTYPE, 7);
 	$blockchain->curl_setopt(CURLOPT_RETURNTRANSFER, 1);
 	$blockchain->curl_setopt(CURLOPT_VERBOSE, 0);
-	$blockchain->Wallet->credentials(Settings::get('blockchain_guid'), Settings::get('blockchain_password'));
 	return $blockchain;
 }
 
-function withdraw(){
-	$blockchain = get_blockchain();
-	$balance_btc = $blockchain->Wallet->getBalance();
-	$withdrawl_minimum_btc = Settings::get('withdrawl_minimum_btc');
+function get_master(){
+	$seed_buffer = get_seed_buffer();
+    return BitWasp\Bitcoin\Key\HierarchicalKeyFactory::fromEntropy($seed_buffer);
+}
 
-	if(bccomp($balance_btc,$withdrawl_minimum_btc,BC_SCALE)!==1)
-		return;
+function get_seed_buffer(){
+	return BitWasp\Buffertools\Buffer::hex(Settings::get('seed'));
+}
 
-	$withdrawl_btc = bcsub($balance_btc,MINING_FEE,BC_SCALE);
-	$blockchain->Wallet->send(Settings::get('address'),$withdrawl_btc,null,MINING_FEE);
+function update(){
+	exec("/var/www/anonymart/bin/update.sh");
 }
 
 function get_form_boolean($name){
@@ -37,6 +37,13 @@ function round_amount($amount){
 
 function get_currencies(){
 	return array_keys(get_rates());
+}
+
+function get_address($index){
+	$index = (int) $index;
+	$mpk = Settings::get('mpk');
+	$network = BitWasp\Bitcoin\Network\NetworkFactory::bitcoin();
+	return BitWasp\Bitcoin\Key\HierarchicalKeyFactory::fromExtended($mpk,$network)->derivePath("0/$index")->getPublicKey()->getAddress()->getAddress();
 }
 
 function get_currency_options(){
@@ -67,10 +74,10 @@ function get_rates(){
 function is_pgp_message($value){
 	$value = trim($value);
 
-    if(!starts_with($value,PGP_MESSAGE_START))
+    if(starts_with($value,PGP_MESSAGE_START)!==TRUE)
     	return false;
 
-    if(!ends_with($value,PGP_MESSAGE_END))
+    if(ends_with($value,PGP_MESSAGE_END)!==TRUE)
     	return false;
 
     return true;
@@ -82,7 +89,7 @@ function force_type($var,$type){
 			return intval($var);
 			break;
 		case 'string':
-			if(!is_string($var))
+			if(is_string($var)!==true)
 				return '';
 			else
 				return $var;

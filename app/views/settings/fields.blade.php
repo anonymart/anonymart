@@ -7,27 +7,6 @@
 	<td>{{Form::select('currency',get_currency_options(),null,['class'=>'form-control'])}}</td>
 </tr>
 <tr>
-	<td>Blockchain.info Guid</td>
-	<td>{{Form::text('blockchain_guid',null,['class'=>'form-control'])}}</td>
-</tr>
-<tr>
-	<td>Blockchain.info Password</td>
-	<td>{{Form::text('blockchain_password',null,['class'=>'form-control'])}}</td>
-</tr>
-<tr>
-	<td>Minimum Withdrawl (BTC)
-		<p class="explainer">Smaller minimums reduce your risk, but result in higher mining fees.</p>
-	</td>
-	<td>{{Form::text('withdrawl_minimum_btc',null,['class'=>'form-control'])}}</td>
-</tr>
-<tr>
-	<td>
-		Cashout Address
-		<p class="explainer">Where should we send your bitcoin?</p>
-	</td>
-	<td>{{Form::text('address',null,['class'=>'form-control'])}}</td>
-</tr>
-<tr>
 	<td>Order TTL (Minutes)
 		<p class="explainer">How long should an order stay alive before it expires?</p>
 	</td>
@@ -48,12 +27,34 @@
 	</td>
 </tr>
 <tr>
+	<td>Master Public Key (MPK)
+		<ul class="explainer">
+			<li>Generate a fresh MPK to be used only for this {{{PROJECT_NAME}}}. Do not reuse MPKs.</li>
+			<li>This MPK should <b>not</b> be used for any personal transactions</li>
+			<li>Your MPK is a long string of characters that starts with <code>xpub</code></li>
+			<li>If you are using Electrum 2.0+, create a new wallet then go to <code>Wallet > Master Public Keys</code></li>
+		</ul>
+	</td>
+	<td>
+		{{Form::text('mpk',null,['class'=>'form-control'])}}
+	</td>
+</tr>
+<tr>
 	<td>Password</td>
 	<td>{{Form::password('password',['class'=>'form-control'])}}</td>
 </tr>
 <tr>
 	<td>Password Confirmation</td>
 	<td>{{Form::password('password_confirmation',['class'=>'form-control'])}}</td>
+</tr>
+<tr>
+	<td>
+		Enable Automatic Updates?
+		<p class="explainer">Leave this checked and {{{PROJECT_NAME}}} will apply security updates and new features daily.</p>
+	</td>
+	<td>
+		{{Form::checkbox('do_auto_update',"1",Settings::make()->isSet?null:true)}}
+	</td>
 </tr>
 <tr>
 	<td>Test Mode?

@@ -102,7 +102,7 @@ Route::filter('order.code', function($route, $request)
 		if(!$order)
 			throw new Exception('Order not found');
 
-		if($order->code != Input::get('code'))
+		if($order->code !== Input::get('code'))
 			throw new Exception('Wrong/missing order code');
 
 	}
@@ -112,7 +112,7 @@ Route::filter('order.code', function($route, $request)
 Route::filter('settings.complete', function()
 {
 	$settings = new Settings;
-	if(!$settings->is_set)
+	if($settings->is_set!==TRUE)
 		return Redirect::to('settings/create');
 });
 

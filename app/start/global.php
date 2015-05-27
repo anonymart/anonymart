@@ -88,7 +88,6 @@ App::after(function($request, $response)
 });
 
 
-require app_path().'/bitcoin.php';
 require app_path().'/constants.php';
 require app_path().'/helpers.php';
 require app_path().'/rules.php';

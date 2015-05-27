@@ -9,15 +9,16 @@
 	</div>
 	@endif
 	<h1>Order for {{{$order->product->title}}} x {{{$order->quantity}}}: {{{$order->status_pretty}}}</h1>
-	@if($order->status==='unpaid' && Auth::guest())
+	@if($order->is_expired === false && $order->status==='unpaid' && Auth::guest())
 		<p>
-			Please send {{{$order->total_amount_btc}}} BTC to <code>{{{$order->address}}}</code> within {{{$order->ttl_minutes}}} minutes.
-			@if($order->balance_btc>0)
-				{{{$order->balance_btc}}} BTC received so far.
-			@endif			
+			Please send {{{$order->total_amount_btc}}} BTC to <code id="address">{{{$order->address}}}</code> within {{{$order->ttl_minutes}}} minutes.			
 		</p>
 	@endif
-	@if($order->status==='expired')
+	@if(Auth::check())
+	<p><b>Address:</b> {{{$order->address}}}</p>
+	@endif
+	<p><b>Receieved:</b> {{{$order->balance_btc}}} BTC</p>
+	@if($order->is_expired===true)
 		<div class="alert alert-danger">
 			This order has expired
 		</div>
@@ -32,7 +33,7 @@
 			<button class="btn btn-danger">Cancel</button>
 		</form>
 	@endif
-	@if(Auth::check())
+	@if(Auth::check() && $order->status!=='shipped')
 		<form action="{{{$order->mark_shipped_url}}}" method="post" style="display:inline-block" id="markShippedForm">
 			@if(Auth::guest())
 				{{Form::hidden('code',$order->code)}}

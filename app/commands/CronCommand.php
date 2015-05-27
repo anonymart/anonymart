@@ -50,11 +50,19 @@ class CronCommand extends Command {
 				case 'check-unpaid-orders':
 					Order::checkUnpaidOrders();
 					break;
+				case 'expire-unpaid-orders':
+					Order::expireUnpaidOrders();
+					break;
 				case 'clear-old-jobs':
 					Job::clearOldJobs();
 					break;
 				case 'withdraw':
 					withdraw();
+					break;
+				case 'auto-update':
+					if(Settings::get('do_auto_update')!==true)
+						throw new Exception('Auto update disabled');
+					update();
 					break;
 				default:
 					throw new Exception("Unkown job '$name'");

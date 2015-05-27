@@ -18,7 +18,7 @@ class AuthController extends \BaseController {
 			return get_form_redirect('errors',$validator->messages()->all());
 
 		$user = User::first();
-		if(!Hash::check($inputs['password'],$user->password))
+		if(Hash::check($inputs['password'],$user->password)!==true)
 			return get_form_redirect('errors',['Wrong password']);
 
 		Auth::login($user);

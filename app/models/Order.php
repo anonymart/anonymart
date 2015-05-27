@@ -30,12 +30,27 @@ class Order extends \Eloquent {
 		return $this->status==='unpaid'|| $this->status==='paid';
 	}
 
+	public function getIsExpiredAttribute(){
+		if($this->status==='expired')
+			return true;
+
+		if($this->status==='unpaid')
+			return $this->ttl_minutes===0;
+	
+		return false;
+	}
+
 	public function getTotalAmountBtcAttribute(){
 		return $this->product_amount_btc;
 	}
 
 	public function getTtlMinutesAttribute(){
-		return Settings::get('order_ttl_minutes') - $this->created_at->diffInMinutes();
+		$ttl_minutes = Settings::get('order_ttl_minutes') - $this->created_at->diffInMinutes();
+
+		if($ttl_minutes>0)
+			return $ttl_minutes;
+		else
+			return 0;
 	}
 
 	public function mark($status){
@@ -119,8 +134,20 @@ class Order extends \Eloquent {
 			$order->check();
 	}
 
+	public static function expireUnpaidOrders(){
+
+		$orders = Order::where('status','unpaid')
+			->where('created_at','<=',Order::getCuttoffTimestamp())
+			->update(["status" => "expired"]);
+	}
+
 }
 
 Order::creating(function($order){
 	$order->code = get_random_string(64);
+});
+
+Order::created(function($order){
+	$order->address = get_address($order->index);
+	$order->save();
 });

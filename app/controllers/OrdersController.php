@@ -51,14 +51,12 @@ class OrdersController extends \BaseController {
 			return get_form_redirect('errors',$validator->messages()->all());
 
 		$product = Product::find($product_id);
-		$bitcoin = Bitcoin::make();
 
 		$order = new Order;
 		$order->fill($inputs);
 		$order->product_id = $product_id;
 		$order->product_amount_btc = $product->amount_btc;
 		$order->status = 'unpaid';
-		$order->address = get_blockchain()->Wallet->getNewAddress()->address;
 		$order->save();
 
 		$message = new Message;

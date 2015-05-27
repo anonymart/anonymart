@@ -26,7 +26,13 @@ Route::group(['before'=>'settings.complete'],function(){
 	});
 
 	Route::get('login','AuthController@getLogin');
-	Route::get('products/{product_id}/orders/create','OrdersController@create');
+
+	Route::group(['before'=>'guest'],function(){
+		Route::get('products/{product_id}/orders/create','OrdersController@create');
+		Route::group(['before'=>'csrf'],function(){
+			Route::post('products/{product_id}/orders/create','OrdersController@store');
+		});
+	});
 
 	Route::group(['before'=>'order.code'],function(){
 		Route::get('orders/{order_id}','OrdersController@show');
@@ -38,7 +44,6 @@ Route::group(['before'=>'settings.complete'],function(){
 
 	Route::group(['before'=>'csrf'],function(){
 		Route::post('login','AuthController@postLogin');
-		Route::post('products/{product_id}/orders/create','OrdersController@store');
 	});
 
 	Route::group(['before'=>'auth'],function(){

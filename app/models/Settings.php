@@ -4,7 +4,7 @@ class Settings extends \Eloquent {
 
 	public function __construct(){
 
-		if(!$this->is_set) return;
+		if($this->is_set!==true) return;
 
 		$dataJson = File::get($this->path);
 		$data = json_decode($dataJson);
@@ -61,26 +61,22 @@ class Settings extends \Eloquent {
 			,'tagline'=>'string'
 			,'currency'=>'string'
 			,'site_info'=>'string'
-			,'address'=>'string'
-			,'blockchain_guid'=>'string'
-			,'blockchain_password'=>'string'
-			,'withdrawl_minimum_btc'=>'string'
 			,'order_ttl_minutes'=>'integer'
 			,'pgp_public'=>'string'
+			,'mpk'=>'string'
 			,'is_testing'=>'boolean'
+			,'do_auto_update'=>'boolean'
 		];
 	}
 
 	public function getRulesAttribute(){
 		return [
 			'site_name'=>'required'
-			,'address'=>'required'
 			,'currency'=>'required'
-			,'blockchain_guid'=>'required'
-			,'blockchain_password'=>'required'
-			,'withdrawl_minimum_btc'=>'required|numeric'
+			,'mpk'=>'required|mpk'
 			,'order_ttl_minutes'=>'required|integer'
 			,'pgp_public'=>'required|pgp_public'
+			,'do_auto_update'=>'boolean'
 			,'is_testing'=>'boolean'
 		];
 	}

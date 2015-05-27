@@ -8,18 +8,14 @@ module.exports = new (function() {
         ,baseUrl = 'http://localhost:8000'
 
 
-    if(!process.env.LS_BLOCKCHAIN_GUID)
-        return console.log('LS_BLOCKCHAIN_GUID shell var missing'.red)
-
-    if(!process.env.LS_BLOCKCHAIN_PASSWORD)
-        return console.log('LS_BLOCKCHAIN_PASSWORD shell var missing'.red)
+    if(!process.env.LS_MPK)
+        return console.log('MPK shell var missing'.red)
 
     if(process.env.LS_ONION)
         baseUrl = 'http://'+process.env.LS_ONION
 
     console.info('Base Url:'.green,baseUrl)
-    console.info('Blockchain Guid:'.green,process.env.LS_BLOCKCHAIN_GUID)
-    console.info('Blockchain Password:'.green,process.env.LS_BLOCKCHAIN_PASSWORD)
+    console.info('MPK:'.green,process.env.LS_MPK)
 
 
     testCases.after = function(client) {
@@ -31,13 +27,10 @@ module.exports = new (function() {
             .url(baseUrl)
             .setValue('[name=site_name]', 'Satoshi\'s Lemonade Stand')
             .setValue('[name=currency]', 'USD')
-            .setValue('[name=blockchain_guid]',process.env.LS_BLOCKCHAIN_GUID)
-            .setValue('[name=blockchain_password]',process.env.LS_BLOCKCHAIN_PASSWORD)
-            .setValue('[name=withdrawl_minimum_btc]','0')
-            .setValue('[name=address]','147BM4WmH17PPxhiH1kyNppWuyCAwn3Jm4')
             .setValue('[name=order_ttl_minutes]','30')
             .setValue('[name=site_info]','#Hello World\r\nWelcome to my Lemonade Stand!')
             .setValue('[name=pgp_public]','-----BEGIN PGP PUBLIC KEY BLOCK----- -----END PGP PUBLIC KEY BLOCK-----')
+            .setValue('[name=mpk]','xpub661MyMwAqRbcGK5eE2eSWmnU4Pg6knZZqZEmREAgZ4vj6z3B5soecps7UJj37NF9aWhjEMQoyH9xgcC14KUgEGX9avagrdv9rcN56wjwXR2')
             .setValue('[name=password]','password')
             .setValue('[name=password_confirmation]','password')
             .click('[name=is_testing]')
@@ -142,7 +135,8 @@ module.exports = new (function() {
             .setValue('[name=pgp_public]','-----BEGIN PGP PUBLIC KEY BLOCK----- -----END PGP PUBLIC KEY BLOCK-----')
             .setValue('[name=captcha]','testing')
             .submitForm('form')
-            .assert.urlContains("/orders/1?code=")
+            .assert.urlContains('/orders/1?code=')
+            .assert.containsText('#address','1BEvbLNxD2GsrweJZRLZLRiFnvNKVvQXHw')
             .execute(function(){
                 return document.getElementsByClassName('message').length
             },[],function(outcome){
