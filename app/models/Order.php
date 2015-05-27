@@ -34,7 +34,7 @@ class Order extends \Eloquent {
 		if($this->status==='expired')
 			return true;
 
-		return $this->ttl_minutes>0;
+		return $this->ttl_minutes===0;
 	}
 
 	public function getTotalAmountBtcAttribute(){
