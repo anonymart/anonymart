@@ -50,8 +50,6 @@ class SeedDemoCommand extends Command {
 		$settings = [
 			'site_name'=>"Satoshi's Lemonade Stand"
 			,'currency'=>'USD'
-			,'address'=>'147BM4WmH17PPxhiH1kyNppWuyCAwn3Jm4'
-			,'wallet_maximum_btc'=>'1'
 			,'site_info'=>"## This is a demo for Anonymart\r\n\r\nNothing here is actually for sale, so you'll lose anything you spend here."
 			,'pgp_public'=>
 '-----BEGIN PGP PUBLIC KEY BLOCK-----
@@ -71,6 +69,7 @@ GN8wraTACCQNXbYz8c/yPF5Fe4k662pY/jeyzN4XxE8rzyYWLVm/19QzixtsRc8n
 CnBXLCfNAuBXBdUWEMC/iLSE1P3mGGHN7cAzB0EJTHke
 =SLpY
 -----END PGP PUBLIC KEY BLOCK-----'
+			,'mpk'=>$this->argument('mpk');
 		];
 		file_put_contents(base_path().'/data/settings.json',json_encode($settings));
 
