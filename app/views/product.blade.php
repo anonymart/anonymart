@@ -8,7 +8,9 @@
 		</div>
 		<div class="panel-footer">
 			<div style="float:left">{{{$product->prices}}}</div>
-			<a class="btn btn-success btn-xs panel-btn" href="{{$product->order_url}}">Order</a>
+			@if(Auth::guest())
+				<a class="btn btn-success btn-xs panel-btn" href="{{$product->order_url}}">Order</a>
+			@endif
 			<a class="btn btn-primary btn-xs panel-btn" href="{{$product->url}}">Info</a>
 			@if(Auth::check())
 				<a class="btn btn-info btn-xs" style="float:right;margin-left:5px;" href="{{$product->edit_url}}">Edit</a>
