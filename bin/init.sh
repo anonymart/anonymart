@@ -36,7 +36,6 @@ git config core.fileMode false
 composer update
 php /var/www/anonymart/artisan migrate --force
 php /var/www/anonymart/artisan app:update-rates
-php /var/www/anonymart/artisan app:set-mpk
 
 cp /var/www/anonymart/configs/torrc /etc/tor/torrc
 service tor stop

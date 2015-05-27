@@ -17,5 +17,3 @@ Artisan::add(new UpdateRatesCommand);
 Artisan::add(new SeedDemoCommand);
 Artisan::add(new CronCommand);
 Artisan::add(new WithdrawCommand);
-Artisan::add(new CreateAddressCommand);
-Artisan::add(new SetMpkCommand);

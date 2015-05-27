@@ -27,6 +27,12 @@
 	</td>
 </tr>
 <tr>
+	<td>MPK</td>
+	<td>
+		{{Form::text('mpk',null,['class'=>'form-control'])}}
+	</td>
+</tr>
+<tr>
 	<td>Password</td>
 	<td>{{Form::password('password',['class'=>'form-control'])}}</td>
 </tr>

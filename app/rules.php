@@ -23,3 +23,13 @@ Validator::extend('captchaish',function($attribute, $value, $parameters){
 	else
 		return \Captcha::check($value);
 });
+
+Validator::extend('mpk', function($attribute, $value, $parameters){
+
+    $value = trim($value);
+
+    if(!starts_with($value,MPK_START))
+        return false;
+
+    return true;
+});

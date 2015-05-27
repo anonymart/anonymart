@@ -126,6 +126,6 @@ Order::creating(function($order){
 });
 
 Order::created(function($order){
-	$order->address = addr_from_mpk(Settings::get('mpk'),$order->id);
+	$order->address = get_address($order->index);
 	$order->save();
 });

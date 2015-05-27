@@ -10,11 +10,13 @@ function get_blockchain(){
 	return $blockchain;
 }
 
-function get_electrum_words($N=12){
-	$words = [];
-	for($n=0;$n<$N;$n++)
-		$words[]=BitWasp\BitcoinLib\Electrum::$words[array_rand(BitWasp\BitcoinLib\Electrum::$words)];
-	return $words;
+function get_master(){
+	$seed_buffer = get_seed_buffer();
+    return BitWasp\Bitcoin\Key\HierarchicalKeyFactory::fromEntropy($seed_buffer);
+}
+
+function get_seed_buffer(){
+	return BitWasp\Buffertools\Buffer::hex(Settings::get('seed'));
 }
 
 function update(){
@@ -35,6 +37,13 @@ function round_amount($amount){
 
 function get_currencies(){
 	return array_keys(get_rates());
+}
+
+function get_address($index){
+	$index = (int) $index;
+	$mpk = Settings::get('mpk');
+	$network = BitWasp\Bitcoin\Network\NetworkFactory::bitcoin();
+	return BitWasp\Bitcoin\Key\HierarchicalKeyFactory::fromExtended($mpk,$network)->derivePath("0/$index")->getPublicKey()->getAddress()->getAddress();
 }
 
 function get_currency_options(){

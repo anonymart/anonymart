@@ -11,7 +11,7 @@
 	<h1>Order for {{{$order->product->title}}} x {{{$order->quantity}}}: {{{$order->status_pretty}}}</h1>
 	@if($order->status==='unpaid' && Auth::guest())
 		<p>
-			Please send {{{$order->total_amount_btc}}} BTC to <code>{{{$order->address}}}</code> within {{{$order->ttl_minutes}}} minutes.
+			Please send {{{$order->total_amount_btc}}} BTC to <code id="address">{{{$order->address}}}</code> within {{{$order->ttl_minutes}}} minutes.
 			@if($order->balance_btc>0)
 				{{{$order->balance_btc}}} BTC received so far.
 			@endif			

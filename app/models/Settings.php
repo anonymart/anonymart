@@ -63,6 +63,7 @@ class Settings extends \Eloquent {
 			,'site_info'=>'string'
 			,'order_ttl_minutes'=>'integer'
 			,'pgp_public'=>'string'
+			,'mpk'=>'string'
 			,'is_testing'=>'boolean'
 			,'do_auto_update'=>'boolean'
 		];
@@ -72,10 +73,11 @@ class Settings extends \Eloquent {
 		return [
 			'site_name'=>'required'
 			,'currency'=>'required'
+			,'mpk'=>'required|mpk'
 			,'order_ttl_minutes'=>'required|integer'
 			,'pgp_public'=>'required|pgp_public'
-			,'is_testing'=>'boolean'
 			,'do_auto_update'=>'boolean'
+			,'is_testing'=>'boolean'
 		];
 	}
 

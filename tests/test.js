@@ -27,10 +27,10 @@ module.exports = new (function() {
             .url(baseUrl)
             .setValue('[name=site_name]', 'Satoshi\'s Lemonade Stand')
             .setValue('[name=currency]', 'USD')
-            .setValue('[name=mpk]',process.env.LS_MPK)
             .setValue('[name=order_ttl_minutes]','30')
             .setValue('[name=site_info]','#Hello World\r\nWelcome to my Lemonade Stand!')
             .setValue('[name=pgp_public]','-----BEGIN PGP PUBLIC KEY BLOCK----- -----END PGP PUBLIC KEY BLOCK-----')
+            .setValue('[name=mpk]','xpub661MyMwAqRbcGK5eE2eSWmnU4Pg6knZZqZEmREAgZ4vj6z3B5soecps7UJj37NF9aWhjEMQoyH9xgcC14KUgEGX9avagrdv9rcN56wjwXR2')
             .setValue('[name=password]','password')
             .setValue('[name=password_confirmation]','password')
             .click('[name=is_testing]')
@@ -135,8 +135,8 @@ module.exports = new (function() {
             .setValue('[name=pgp_public]','-----BEGIN PGP PUBLIC KEY BLOCK----- -----END PGP PUBLIC KEY BLOCK-----')
             .setValue('[name=captcha]','testing')
             .submitForm('form')
-            .pause(100000)
-            .assert.urlContains("/orders/1?code=")
+            .assert.urlContains('/orders/1?code=')
+            .assert.containsText('#address','1BEvbLNxD2GsrweJZRLZLRiFnvNKVvQXHw')
             .execute(function(){
                 return document.getElementsByClassName('message').length
             },[],function(outcome){

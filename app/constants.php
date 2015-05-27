@@ -10,6 +10,7 @@ define('PGP_PUBLIC_START','-----BEGIN PGP PUBLIC KEY BLOCK-----');
 define('PGP_PUBLIC_END','-----END PGP PUBLIC KEY BLOCK-----');
 define('PGP_MESSAGE_START','-----BEGIN PGP MESSAGE-----');
 define('PGP_MESSAGE_END','-----END PGP MESSAGE-----');
+define('MPK_START','xpub');
 
 DEFINE('XPUB_START','xpub661MyMwAqRbc');
 
