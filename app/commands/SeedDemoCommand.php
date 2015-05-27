@@ -88,6 +88,8 @@ CnBXLCfNAuBXBdUWEMC/iLSE1P3mGGHN7cAzB0EJTHke
 
 		copy(base_path().'/assets/product_images/original.jpg',base_path().'/public/images/products/1');
 		copy(base_path().'/assets/product_images/rasberry.jpg',base_path().'/public/images/products/2');
+
+		exec('chown -R www-data:www-data /var/www/anonymart/data');
 	}
 
 	/**
