@@ -51,8 +51,6 @@ class SeedDemoCommand extends Command {
 			'site_name'=>"Satoshi's Lemonade Stand"
 			,'currency'=>'USD'
 			,'address'=>'147BM4WmH17PPxhiH1kyNppWuyCAwn3Jm4'
-			,'blockchain_guid'=>$this->argument('blockchain_guid')
-			,'blockchain_password'=>$this->argument('blockchain_password')
 			,'wallet_maximum_btc'=>'1'
 			,'site_info'=>"## This is a demo for Anonymart\r\n\r\nNothing here is actually for sale, so you'll lose anything you spend here."
 			,'pgp_public'=>
@@ -101,8 +99,7 @@ CnBXLCfNAuBXBdUWEMC/iLSE1P3mGGHN7cAzB0EJTHke
 	{
 		return array(
 			array('password', InputArgument::REQUIRED, 'Site password.'),
-			array('blockchain_guid', InputArgument::REQUIRED, 'Blockchain Guid.'),
-			array('blockchain_password', InputArgument::REQUIRED, 'blockchain Password.'),
+			array('mpk', InputArgument::REQUIRED, 'MPK.'),
 		);
 	}
 

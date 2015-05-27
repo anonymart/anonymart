@@ -3,9 +3,6 @@ export DEBIAN_FRONTEND=noninteractive
 echo deb http://deb.torproject.org/torproject.org jessie main >> /etc/apt/sources.list
 
 apt-get update -y 
-apt-get install tor -y
-
-
 apt-get upgrade -y
 apt-get remove --purge rsyslog exim postfix sendmail wget -y
 apt-get -y install nginx curl php5 php5-fpm mysql-server php5-mysql php5-cli php5-mcrypt php5-curl php5-gd php5-gmp tor ufw fail2ban unattended-upgrades -qq
@@ -26,7 +23,6 @@ curl -sS https://getcomposer.org/installer | php
 mv composer.phar /usr/local/bin/composer
 composer config -g github-oauth.github.com 48c6aa57bbdb1e622e1c5807169338c2943c03f3
 
-
 php5enmod mcrypt
 service nginx restart
 service php5-fpm restart
@@ -35,6 +31,11 @@ cd /var/www/anonymart/
 git config core.fileMode false
 composer update
 php /var/www/anonymart/artisan migrate --force
+#Update rates sometimes fails. Do 3 times just to be sure
+php /var/www/anonymart/artisan app:update-rates
+sleep 5
+php /var/www/anonymart/artisan app:update-rates
+sleep 5
 php /var/www/anonymart/artisan app:update-rates
 
 cp /var/www/anonymart/configs/torrc /etc/tor/torrc

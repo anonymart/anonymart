@@ -27,7 +27,14 @@
 	</td>
 </tr>
 <tr>
-	<td>MPK</td>
+	<td>Master Public Key (MPK)
+		<ul class="explainer">
+			<li>Generate a fresh MPK to be used only for this {{{PROJECT_NAME}}}. Do not reuse MPKs.</li>
+			<li>This MPK should <b>not</b> be used for any personal transactions</li>
+			<li>Your MPK is a long string of characters that starts with <code>xpub</code></li>
+			<li>If you are using Electrum 2.0+, create a new wallet then go to <code>Wallet > Master Public Keys</code></li>
+		</ul>
+	</td>
 	<td>
 		{{Form::text('mpk',null,['class'=>'form-control'])}}
 	</td>
