@@ -41,7 +41,7 @@
 		</tr>
 		<tr>
 			<td>Address:</td>
-			<td>{{{$order->address}}}</td>
+			<td id="address">{{{$order->address}}}</td>
 		</tr>
 		@if(!$order->is_expired)
 		<tr>
