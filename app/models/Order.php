@@ -71,7 +71,7 @@ class Order extends \Eloquent {
 	}
 
 	public function markAsPaid(){
-		$this->status = 'shipped';
+		$this->status = 'paid';
 		$this->save();
 
 		$message = new Message;
