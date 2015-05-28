@@ -13,10 +13,15 @@ class Order extends \Eloquent {
 
 	public function check(){
 		$blockchain = get_blockchain();
-		$this->balance_btc = $blockchain->Explorer->getAddress($this->address)->final_balance;
+		$this->balance_btc=$blockchain->Explorer->getAddress($this->address)->final_balance;
+
 		if(bccomp($this->balance_btc, $this->total_amount_btc,BC_SCALE)>=0)
 			$this->markAsPaid();
 		$this->save();
+	}
+
+	public function setBalanceBtcAttribute($value){
+		$this->attributes['balance_btc']=bcmul('1', $value,BC_SCALE);
 	}
 
 	public function getStatusPrettyAttribute(){

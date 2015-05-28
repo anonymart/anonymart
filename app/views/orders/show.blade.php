@@ -9,20 +9,35 @@
 	</div>
 	@endif
 	<h1>Order for {{{$order->product->title}}} x {{{$order->quantity}}}: {{{$order->status_pretty}}}</h1>
-	@if($order->is_expired === false && $order->status==='unpaid' && Auth::guest())
-		<p>
-			Please send {{{$order->total_amount_btc}}} BTC to <code id="address">{{{$order->address}}}</code> within {{{$order->ttl_minutes}}} minutes.			
-		</p>
-	@endif
-	@if(Auth::check())
-	<p><b>Address:</b> {{{$order->address}}}</p>
-	@endif
-	<p><b>Receieved:</b> {{{$order->balance_btc}}} BTC</p>
 	@if($order->is_expired===true)
 		<div class="alert alert-danger">
 			This order has expired
 		</div>
 	@endif
+	<table class="table">
+		<tr>
+			<td>Status:</td>
+			<td>{{{$order->status_pretty}}}</td>
+		</tr>
+		<tr>
+			<td>Address:</td>
+			<td>{{{$order->address}}}</td>
+		</tr>
+		@if(!$order->is_expired)
+		<tr>
+			<td>Expires In:</td>
+			<td>{{{$order->ttl_minutes}}} minutes</td>
+		</tr>
+		@endif
+		<tr>
+			<td>Amount Needed:</td>
+			<td>{{{$order->total_amount_btc}}} BTC</td>
+		</tr>
+		<tr>
+			<td>Amount Received:</td>
+			<td>{{{$order->balance_btc}}} BTC</td>
+		</tr>
+	</table>
 	@if(($order->is_cancellable))
 		<form action="{{{$order->mark_cancelled_url}}}" method="post" style="display:inline-block" id="markCancelledForm">
 			@if(Auth::guest())
