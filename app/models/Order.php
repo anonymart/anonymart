@@ -148,6 +148,6 @@ Order::creating(function($order){
 });
 
 Order::created(function($order){
-	$order->address = get_address($order->index);
+	$order->address = get_address($order->id);
 	$order->save();
 });
