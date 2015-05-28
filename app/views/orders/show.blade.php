@@ -14,6 +14,26 @@
 			This order has expired
 		</div>
 	@endif
+	@if(($order->is_cancellable))
+		<form action="{{{$order->mark_cancelled_url}}}" method="post" style="display:inline-block" id="markCancelledForm">
+			@if(Auth::guest())
+				{{Form::hidden('code',$order->code)}}
+			@endif
+			<input type="hidden" name="status" value="cancelled">
+			{{Form::token()}}
+			<button class="btn btn-danger">Cancel</button>
+		</form>
+	@endif
+	@if(Auth::check() && $order->status!=='shipped')
+		<form action="{{{$order->mark_shipped_url}}}" method="post" style="display:inline-block" id="markShippedForm">
+			@if(Auth::guest())
+				{{Form::hidden('code',$order->code)}}
+			@endif
+			<input type="hidden" name="status" value="shipped">
+			{{Form::token()}}
+			<button class="btn btn-primary">Mark as Shipped</button>
+		</form>
+	@endif
 	<table class="table">
 		<tr>
 			<td>Status:</td>
@@ -38,26 +58,6 @@
 			<td>{{{$order->balance_btc}}} BTC</td>
 		</tr>
 	</table>
-	@if(($order->is_cancellable))
-		<form action="{{{$order->mark_cancelled_url}}}" method="post" style="display:inline-block" id="markCancelledForm">
-			@if(Auth::guest())
-				{{Form::hidden('code',$order->code)}}
-			@endif
-			<input type="hidden" name="status" value="cancelled">
-			{{Form::token()}}
-			<button class="btn btn-danger">Cancel</button>
-		</form>
-	@endif
-	@if(Auth::check() && $order->status!=='shipped')
-		<form action="{{{$order->mark_shipped_url}}}" method="post" style="display:inline-block" id="markShippedForm">
-			@if(Auth::guest())
-				{{Form::hidden('code',$order->code)}}
-			@endif
-			<input type="hidden" name="status" value="shipped">
-			{{Form::token()}}
-			<button class="btn btn-primary">Mark as Shipped</button>
-		</form>
-	@endif
 	<hr>
 	<div class="row">
 		<div class="col-sm-5">
