@@ -13,9 +13,8 @@ class Order extends \Eloquent {
 
 	public function check(){
 		$blockchain = get_blockchain();
-		$balance_btc = $blockchain->Explorer->getAddress($this->address)->final_balance;		
-		$this->balance_btc = $balance_btc;
-		if(bccomp($balance_btc, $this->total_amount_btc)>=0)
+		$this->balance_btc = $blockchain->Explorer->getAddress($this->address)->final_balance;
+		if(bccomp($this->balance_btc, $this->total_amount_btc,BC_SCALE)>=0)
 			$this->markAsPaid();
 		$this->save();
 	}
