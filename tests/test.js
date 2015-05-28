@@ -81,7 +81,7 @@ module.exports = new (function() {
             .url(baseUrl+'/products/create')
             .setValue('[name=title]', 'Rasberry Lemonade')
             .setValue('[name=info]', 'A tart twist')
-            .setValue('[name=amount_fiat]','.10')
+            .setValue('[name=amount_fiat]','.15')
             .setValue('#image',path.resolve(__dirname,'../assets/product_images/rasberry.jpg'))
             .submitForm('form')
             .url(baseUrl+'/')
@@ -139,14 +139,17 @@ module.exports = new (function() {
             })
     };
 
-    testCases['order another product'] = function (client) {
+    testCases['order another product with qty of 2'] = function (client) {
         client
             .url(baseUrl+'/products/1/orders/create')
+            .clearValue('[name=quantity]')
+            .setValue('[name=quantity]',2)
             .setValue('[name=text]', '-----BEGIN PGP MESSAGE----- -----END PGP MESSAGE-----')
             .setValue('[name=pgp_public]','-----BEGIN PGP PUBLIC KEY BLOCK----- -----END PGP PUBLIC KEY BLOCK-----')
             .setValue('[name=captcha]','testing')
             .submitForm('form')
             .assert.containsText('#address','1LVDNgEPc95Y9NfbjKYotUF7muEZaKa4mr')
+            .assert.containsText('#total_amount_btc','0.0020 BTC')
             .execute(function(){
                 return document.getElementsByClassName('message').length
             },[],function(outcome){

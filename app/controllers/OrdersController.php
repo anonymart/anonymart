@@ -55,7 +55,7 @@ class OrdersController extends \BaseController {
 		$order = new Order;
 		$order->fill($inputs);
 		$order->product_id = $product_id;
-		$order->product_amount_btc = $product->amount_btc;
+		$order->product_amount_btc = bcmul($product->amount_btc,$order->quantity,BC_SCALE);
 		$order->status = 'unpaid';
 		$order->save();
 

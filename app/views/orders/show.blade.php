@@ -51,7 +51,7 @@
 		@endif
 		<tr>
 			<td>Amount Needed:</td>
-			<td>{{{$order->total_amount_btc}}} BTC</td>
+			<td id="total_amount_btc">{{{$order->total_amount_btc}}} BTC</td>
 		</tr>
 		<tr>
 			<td>Amount Received:</td>
