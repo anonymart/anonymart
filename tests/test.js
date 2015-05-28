@@ -8,15 +8,10 @@ module.exports = new (function() {
         ,baseUrl = 'http://localhost:8000'
 
 
-    if(!process.env.LS_MPK)
-        return console.log('MPK shell var missing'.red)
-
     if(process.env.LS_ONION)
         baseUrl = 'http://'+process.env.LS_ONION
 
     console.info('Base Url:'.green,baseUrl)
-    console.info('MPK:'.green,process.env.LS_MPK)
-
 
     testCases.after = function(client) {
         client.pause(1000000).end();
@@ -136,7 +131,22 @@ module.exports = new (function() {
             .setValue('[name=captcha]','testing')
             .submitForm('form')
             .assert.urlContains('/orders/1?code=')
-            .assert.containsText('#address','1BEvbLNxD2GsrweJZRLZLRiFnvNKVvQXHw')
+            .assert.containsText('#address','1N7V57yMjBFpLVsNRTAdXw7E2dWhswgBB6')
+            .execute(function(){
+                return document.getElementsByClassName('message').length
+            },[],function(outcome){
+                client.assert.equal(outcome.value,1)
+            })
+    };
+
+    testCases['order another product'] = function (client) {
+        client
+            .url(baseUrl+'/products/1/orders/create')
+            .setValue('[name=text]', '-----BEGIN PGP MESSAGE----- -----END PGP MESSAGE-----')
+            .setValue('[name=pgp_public]','-----BEGIN PGP PUBLIC KEY BLOCK----- -----END PGP PUBLIC KEY BLOCK-----')
+            .setValue('[name=captcha]','testing')
+            .submitForm('form')
+            .assert.containsText('#address','1LVDNgEPc95Y9NfbjKYotUF7muEZaKa4mr')
             .execute(function(){
                 return document.getElementsByClassName('message').length
             },[],function(outcome){
@@ -170,7 +180,7 @@ module.exports = new (function() {
             .execute(function(){
                 return document.getElementsByClassName('order').length
             },[],function(outcome){
-                client.assert.equal(outcome.value,2)
+                client.assert.equal(outcome.value,3)
             })
     };
 
