@@ -43,7 +43,7 @@
 			<td>Address:</td>
 			<td id="address">{{{$order->address}}}</td>
 		</tr>
-		@if(!$order->is_expired)
+		@if($order->status==='unpaid')
 		<tr>
 			<td>Expires In:</td>
 			<td>{{{$order->ttl_minutes}}} minutes</td>
