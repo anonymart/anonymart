@@ -13,11 +13,9 @@ class Order extends \Eloquent {
 
 	public function check(){
 		$blockchain = get_blockchain();
-		$balance_btc = $blockchain->Wallet->getAddressBalance($this->address)->balance;
-		$balance_btc = force_type($balance_btc,'float');
-		
+		$balance_btc = $blockchain->Explorer->getAddress($this->address)->final_balance;		
 		$this->balance_btc = $balance_btc;
-		if($balance_btc >= $this->total_amount_btc)
+		if(bccomp($balance_btc, $this->total_amount_btc)>=0)
 			$this->markAsPaid();
 		$this->save();
 	}
@@ -69,6 +67,16 @@ class Order extends \Eloquent {
 		$message = new Message;
 		$message->sender = 'app';
 		$message->template = 'shipped';
+		$this->messages()->save($message);
+	}
+
+	public function markAsPaid(){
+		$this->status = 'shipped';
+		$this->save();
+
+		$message = new Message;
+		$message->sender = 'app';
+		$message->template = 'paid';
 		$this->messages()->save($message);
 	}
 
