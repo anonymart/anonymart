@@ -91,8 +91,6 @@ chown -R www-data:www-data /var/www/anonymart/data
 chown -R www-data:www-data /var/www/anonymart/app/storage
 chmod u+rwx /var/www/anonymart/bin/*
 
-/var/www/anonymart/bin/route.sh &>> $log
-
 crontab /var/www/anonymart/configs/cron &>> $log
 
 update-rc.d php5-fpm defaults >> $log
