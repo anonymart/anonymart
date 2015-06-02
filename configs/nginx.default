@@ -1,16 +1,20 @@
 server {
-        listen 127.0.0.1:9070;
+        listen 80;
 
         root /var/www/anonymart/public/;
         index index.php index.html index.htm;
-        server_name lyzfkxsscc2bpwxj.onion;
+        server_name ONIONHOSTNAME;
 
-       location / {
-                try_files $uri $uri/ /index.php$is_args$args;
+        allow 127.0.0.1;
+        deny all;
+
+        location / {
+            try_files $uri $uri/ /index.php$is_args$args;
         }
 
         # pass the PHP scripts to FastCGI server listening on /var/run/php5-fpm.sock
         location ~ \.php$ {
+                try_files $uri /index.php =404;
                 fastcgi_pass unix:/var/run/php5-fpm.sock;
                 fastcgi_index index.php;
                 fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
