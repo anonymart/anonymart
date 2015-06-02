@@ -37,6 +37,10 @@ class CronCommand extends Command {
 	 */
 	public function fire()
 	{
+
+		if(!file_exists(base_path().'/data/settings.json'))
+			throw new Exception("Settings not set");;
+
 		$name = $this->argument('name');
 
 		$job = new Job(['name'=>$name]);
