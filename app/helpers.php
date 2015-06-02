@@ -1,5 +1,7 @@
 <?PHP
 
+use BitWasp\BitcoinLib\BIP32;
+
 function get_blockchain(){
 	$blockchain = new \Blockchain\Blockchain();
 	$blockchain->setUrl('https://blockchainbdgpzk.onion/');
@@ -42,8 +44,7 @@ function get_currencies(){
 function get_address($index){
 	$index = (int) $index;
 	$mpk = Settings::get('mpk');
-	$network = BitWasp\Bitcoin\Network\NetworkFactory::bitcoin();
-	return BitWasp\Bitcoin\Key\HierarchicalKeyFactory::fromExtended($mpk,$network)->derivePath("0/$index")->getPublicKey()->getAddress()->getAddress();
+	return BIP32::build_address($mpk,"0/$index")[0];
 }
 
 function get_currency_options(){

@@ -14,11 +14,8 @@
 		"laravel/framework": "4.2.*"
 		,"mews/captcha": "1.0.*"
 		,"alfredo-ramos/parsedown-extra-laravel": "~0.2"
-		,"vohof/transmission": "1.0.*"
 		,"blockchain/blockchain": "dev-master"
-		,"symfony/console":"2.5.9 as 2.6.0"
-		,"mdanter/ecc": "dev-master"
-		,"bitwasp/bitcoin":"dev-master"
+		,"bitwasp/bitcoin-lib": "1.0.*"
 	},"require-dev": {
 	    "way/generators": "~2.0"
 	},

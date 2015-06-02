@@ -124,7 +124,6 @@ return array(
 		'Way\Generators\GeneratorsServiceProvider',
 		'Mews\Captcha\CaptchaServiceProvider',
 		'AlfredoRamos\ParsedownExtra\ParsedownExtraServiceProvider',
-	    'Vohof\TransmissionServiceProvider',
 
 	),
 

@@ -29,11 +29,8 @@ cd /var/www/anonymart/
 git config core.fileMode false
 composer update
 php /var/www/anonymart/artisan migrate --force
-#Update rates sometimes fails. Do 3 times just to be sure
-php /var/www/anonymart/artisan app:update-rates
-sleep 5
-php /var/www/anonymart/artisan app:update-rates
-sleep 5
+
+cp /var/www/anonymart/configs/rates.json /var/www/anonymart/data/rates.json
 php /var/www/anonymart/artisan app:update-rates
 
 cp /var/www/anonymart/configs/torrc /etc/tor/torrc
