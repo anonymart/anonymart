@@ -105,10 +105,10 @@ chattr +i /etc/resolv.conf >> $log
 # Directly from https://trac.torproject.org/projects/tor/wiki/doc/TransparentProxy#LocalRedirectionThroughTor
 
 #destinations you don't want routed through Tor
-_non_tor="192.168.1.0/24 192.168.0.0/24 10.0.0.0/8"
+_non_tor="192.168.1.0/24 192.168.0.0/24"
 
 #the UID that Tor runs as (varies from system to system)
-_tor_uid="106"
+_tor_uid=$(id -u debian-tor)
 
 #Tor's TransPort
 _trans_port="9040"
