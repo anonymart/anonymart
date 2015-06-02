@@ -59,11 +59,6 @@ class CronCommand extends Command {
 				case 'withdraw':
 					withdraw();
 					break;
-				case 'auto-update':
-					if(Settings::get('do_auto_update')!==true)
-						throw new Exception('Auto update disabled');
-					update();
-					break;
 				default:
 					throw new Exception("Unkown job '$name'");
 					break;

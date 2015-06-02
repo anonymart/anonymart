@@ -21,10 +21,6 @@ function get_seed_buffer(){
 	return BitWasp\Buffertools\Buffer::hex(Settings::get('seed'));
 }
 
-function update(){
-	exec("/var/www/anonymart/bin/update.sh");
-}
-
 function get_form_boolean($name){
 	return Form::select($name,[1=>'Yes',0=>'No'],null,['class'=>'form-control']);
 }
