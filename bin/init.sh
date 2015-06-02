@@ -31,7 +31,7 @@ fi
 # Configuring auto updates
 echo "[+] Configuring all the stuff"
 cp /var/www/anonymart/configs/10periodic /etc/apt/apt.conf.d/10periodic >> $log
-cp /var/www/anonymart/configs/10periodic /etc/apt/apt.conf.d/50unattended-upgrades >> $log
+cp /var/www/anonymart/configs/50unattended-upgrades /etc/apt/apt.conf.d/50unattended-upgrades >> $log
 
 # PHP Functions which are not required and may be risky
 disable_functions="disable_functions = pcntl_alarm, pcntl_fork, pcntl_waitpid, pcntl_wait, pcntl_wifexited, pcntl_wifstopped, pcntl_wifsignaled, pcntl_wexitstatus, pcntl_wtermsig, pcntl_wstopsig, pcntl_signal, pcntl_signal_dispatch, pcntl_get_last_error, pcntl_strerror, pcntl_sigprocmask, pcntl_sigwaitinfo, pcntl_sigtimedwait, pcntl_exec, pcntl_getpriority, pcntl_setpriority, define_syslog_variables, escapeshellarg, escapeshellcmd, eval, exec, fp, fput, ftp_connect, ftp_exec, ftp_get, ftp_login, ftp_nb_fput, ftp_put, ftp_raw, ftp_rawlist, highlight_file, ini_alter, ini_get_all, ini_restore, inject_code, mysql_pconnect, openlog, passthru, php_uname, popen, posix_getpwuid, posix_kill, posix_mkfifo, posix_setpgid, posix_setsid, posix_setuid, posix_setuid, posix_uname, proc_close, proc_get_status, proc_nice, proc_open, proc_terminate, shell_exec, syslog, system, xmlrpc_entity_decode"
