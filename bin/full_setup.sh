@@ -184,5 +184,5 @@ rm -rf /var/www/anonymart/conf/
 
 echo "[+] Your onion address: "$hostname
 echo "[+] Your ssh address: "$hostname_ssh
-echo "WARNING: After logging out from this ssh session, you will have to connect via tor using the above address and port 22.
+echo "WARNING: After logging out from this ssh session, you will have to connect via tor using the above address and port 22."
 
